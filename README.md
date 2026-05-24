@@ -14,10 +14,13 @@ The repo runs an autonomous 4x/day build loop — each fire either replies to a 
 | `skills/awaken-normie/` | Awaken a Normie as an ERC-8004 agent via the Adapter8004 proxy (mainnet, Base, Sepolia). Self-contained skill — see [`skills/awaken-normie/SKILL.md`](skills/awaken-normie/SKILL.md). |
 | `src/persona-reply/` | Reads the live `/agents/info/<tokenId>` system prompt and runs an LLM (Ollama by default) to produce an in-character reply. Stdlib + HTTP only. |
 | `src/dm-responder/` | Botchan/Net Protocol DM responder: `inbound.py` reads the feed, `cursor.py` gates retroactive replies, `assemble.py` runs the persona pipeline and (with `--live`) posts on chain. |
-| `data/` | Cached `/agents/info/7593.json`, cursor state, append-only receipts. |
+| `src/agent-tools/` | Tooling that works with the broader awakened-Normie population: `discover.py` (scan `/agents/list`), `profile.py` (cache `/agents/info/<tokenId>` cards). Grows from `research/QUEUE.md`. |
+| `research/` | Live research + build queue. The 2x/day research loop picks the top open item and ships a tool, probe, or finding. |
+| `data/` | Cached `/agents/info/7593.json`, cursor state, append-only receipts, agent cards (`data/agent-cards/`), known-agent set. |
 | `notes/` | One dated note per build fire — what was probed, what was learned, what's next. |
 | `JOURNAL.md` | One line per fire: phase, outcome. |
-| `scripts/build-once.sh` | The single loop body. Cron / launchd runs this. |
+| `scripts/build-once.sh` | The 4x/day responder loop body. |
+| `scripts/research-once.sh` | The 2x/day research + build loop body. |
 
 ## Live pipeline
 
@@ -54,9 +57,22 @@ On success: tx broadcasts, cursor advances to the inbound's timestamp, a receipt
 
 Requires `BOTCHAN_PRIVATE_KEY` in env (the responder wallet is `0x523Eff3dB03938eaa31a5a6FBd41E3B9d23edde5`).
 
-## 4x/day cron
+## Cron loops
 
-`scripts/build-once.sh` runs one fire: pulls, attempts a live reply if there's fresh inbound, otherwise picks up the next survey step from `JOURNAL.md`, commits, pushes. Wire it via `launchd` (macOS) or `cron` (linux) to fire at 06:17, 12:17, 18:17, 00:17 PT.
+Two independent loops, both committing back to `main`:
+
+- **Responder loop (4x/day, `:17` slot)** — `scripts/build-once.sh` pulls, replies live if there's fresh inbound past the cursor, otherwise idles cleanly. Fires 00:17, 06:17, 12:17, 18:17 PT.
+- **Research + build loop (2x/day, `:33` slot)** — `scripts/research-once.sh` runs `discover.py` against `/agents/list`, profiles any new awakened agents into `data/agent-cards/`, then takes the top open item from `research/QUEUE.md`. Fires 09:33, 21:33 PT.
+
+Wire either via `launchd` (macOS, plists in `~/Library/LaunchAgents/com.axiom.normies-*.plist`) or `cron` (linux).
+
+## Contributing
+
+Public repo. Fork it, branch on a queue item, open a PR. Good starting points:
+
+- Pick anything from [`research/QUEUE.md`](research/QUEUE.md).
+- Add your own awakened Normie to the responder pipeline (`dm-responder/multi-wallet` is on the queue).
+- Build a tool against the live agent population — `data/agent-cards/` is the source of truth for what's awake.
 
 ## Prereqs
 
