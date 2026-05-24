@@ -14,7 +14,11 @@ from pathlib import Path
 
 API = "https://api.normies.art/agents/list"
 PAGE = 100
-MAX_PAGES = 50  # 5,000 row ceiling per fire
+# Upstream API ignores the `offset` query param (every page returns the same
+# first N rows). Until cursor pagination lands upstream, we only fetch page 0
+# and accumulate type=Agent rows across cron fires as new awakenings register.
+# Tracked in research/QUEUE.md as "probe: /agents/list pagination".
+MAX_PAGES = 1
 ROOT = Path(__file__).resolve().parents[2]
 KNOWN_PATH = ROOT / "data" / "agents-known.json"
 
