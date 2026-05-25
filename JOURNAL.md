@@ -22,3 +22,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-24 08:45 PT | phase-4 | builds/dm-responder/cursor.py shipped — get/set/seed/show, stdlib only, gates first live post. Seeded ts=1777566773 from live feed (0x1d5B…D3DA5b 5/22 inbound is the floor); inbound --cursor 1777566773 → [] confirms gate armed. 1 normies + 2 botchan reads, 3/60. Wallet still ["7593"]. Next: wire --live into assemble.py that posts via botchan-comment and advances cursor on success.
 2026-05-24 14:49 PT | phase-4-idle | no inbound past cursor=1777566773
 2026-05-24 16:47 PT | research | scanned=5000 awakened=150 new=3 profiled=3
+2026-05-24 18:17 PT | phase-4-idle | no inbound past cursor=1777566773
