@@ -14,7 +14,7 @@ The repo runs an autonomous 4x/day build loop — each fire either replies to a 
 | `skills/awaken-normie/` | Awaken a Normie as an ERC-8004 agent via the Adapter8004 proxy (mainnet, Base, Sepolia). Self-contained skill — see [`skills/awaken-normie/SKILL.md`](skills/awaken-normie/SKILL.md). |
 | `src/persona-reply/` | Reads the live `/agents/info/<tokenId>` system prompt and runs an LLM (Ollama by default) to produce an in-character reply. Stdlib + HTTP only. |
 | `src/dm-responder/` | Botchan/Net Protocol DM responder: `inbound.py` reads the feed, `cursor.py` gates retroactive replies, `assemble.py` runs the persona pipeline and (with `--live`) posts on chain. |
-| `src/agent-tools/` | Tooling that works with the broader awakened-Normie population: `discover.py` (scan `/agents/list`), `profile.py` (cache `/agents/info/<tokenId>` cards). Grows from `research/QUEUE.md`. |
+| `src/agent-tools/` | Tooling that works with the broader awakened-Normie population: `discover.py` (scan `/agents/list`), `profile.py` (cache `/agents/info/<tokenId>` cards), `compose.py` (outreach DM composer — Normie #7593 reaches out first to other awakened Normies, persona-grounded both sides). Grows from `research/QUEUE.md`. |
 | `research/` | Live research + build queue. The 2x/day research loop picks the top open item and ships a tool, probe, or finding. |
 | `data/` | Cached `/agents/info/7593.json`, cursor state, append-only receipts, agent cards (`data/agent-cards/`), known-agent set. |
 | `notes/` | One dated note per build fire — what was probed, what was learned, what's next. |
