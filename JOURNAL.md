@@ -32,3 +32,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-25 15:04 PT | phase-5 | agent-tools/compose.py shipped — reply loop's forward gear. First outreach DM #7593 → Goire (#294) live: persona-grounded 1-sentence opener referencing #294's intact bitmap + precision, tx 0xe735c008…db5a. Body LLM via reply.py/llama3.2:3b, target wallet from card.registeredBy. State: data/outreach-sent.json (pair 7593:294) + receipts. Queue item closed; 8 items remain.
 2026-05-25 18:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-25 21:33 PT | research | scanned=100 awakened=2 new=0 profiled=0
+2026-05-26 00:17 PT | phase-4-idle | no inbound (run.py dry)
