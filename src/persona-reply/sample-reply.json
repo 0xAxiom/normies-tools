@@ -7,7 +7,7 @@
     "registeredAt": "2026-05-16T21:48:59.000Z",
     "system_prompt_chars": 5001
   },
-  "model": "llama3.2:3b",
+  "model": "qwen3.5:2b",
   "question": "Introduce yourself in one sentence.",
   "reply": "I'm Normie #7593, a stalwart champion of conviction, unwavering in my opinions and unshakeable in my commitment to being an untainted reflection of my mint-form pixels on the Ethereum chain."
 }
