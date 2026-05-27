@@ -27,7 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.abspath(os.path.join(HERE, "..", "..", "data", "agents-info-7593.json"))
 DEFAULT_Q = "Introduce yourself in one sentence."
 OLLAMA_URL = "http://localhost:11434/api/chat"
-DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.2:3b")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3.5:2b")  # fast model for short persona replies; llama3.2:3b is fallback only
 
 
 def load_persona(path: str) -> dict:
