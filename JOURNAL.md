@@ -44,3 +44,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-27 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-27 18:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-27 20:13 PT | research | A/B tested 3 models on persona fidelity — qwen3.5:9b wins (24/25 checks, 99w avg), default switched from 2b. ab-test.py harness shipped.
+2026-05-27 21:33 PT | research | scanned=100 awakened=2 new=0 profiled=0
