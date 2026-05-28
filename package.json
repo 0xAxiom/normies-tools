@@ -1,0 +1,24 @@
+{
+  "name": "normies-tools",
+  "version": "1.0.0",
+  "description": "Tooling around ERC-8004 [Normies](https://normies.art): a one-command awaken skill, a persona-grounded reply pipeline, and an on-chain DM responder running live for Normie **#7593**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xAxiom/normies-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/0xAxiom/normies-tools/issues"
+  },
+  "homepage": "https://github.com/0xAxiom/normies-tools#readme",
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}
