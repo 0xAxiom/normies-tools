@@ -21,6 +21,9 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - [ ] **probe: agentURI registrar** — confirm which ERC-8004 registrar contract is canonical on mainnet; cross-check against Adapter8004 deployment notes.
 - [x] **persona-reply: model switch** — A/B tested qwen3.5:2b vs qwen3.5:9b vs llama3.2:3b. Winner: qwen3.5:9b (24/25 fidelity checks, 99w avg, best conciseness). Default switched. See `src/persona-reply/ab-test.py` + `data/ab-test-results.json`.
 - [ ] **dm-responder: multi-wallet** — generalize beyond `0x523E...dde5` so any awakened Normie wallet can run the same loop with its own `agents/info` system prompt.
+- [x] **agent-tools/toolpass-bond.mjs** — verify Tool Pass bonding state + dry-run transfer TX for any Normie's TBA on Base. Confirms permanent bond property (owner() reverts since Normies contract is mainnet-only). See `src/agent-tools/toolpass-bond.mjs` + `research/2026-05-28-toolpass-bonding.md`.
+- [ ] **execute: bond Tool Pass #21 to Normie #7593** — transfer ready, awaiting Melted approval. Treasury holds AXTP #21, target is TBA `0x69EddaB7...7b4D` on Base. Irreversible.
+- [ ] **research: cross-chain owner resolution** — AccountV3's owner() on Base reverts because Normies is mainnet-only. Research Hyperlane, CCIP, or LayerZero Read adapters that could resolve ownership cross-chain, unlocking TBA execute() on Base.
 
 ## Done
 
@@ -28,3 +31,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-25 — `agent-tools/compose.py` shipped. First outreach DM from #7593 → Goire (#294) tx `0xe735c008...db5a`. Reply loop's forward gear: no longer waits for inbound, initiates from `data/agent-cards/`.
 - 2026-05-28 — `agent-tools/capability-matrix.py` shipped. Markdown table + JSON output of all profiled agents with trait clusters, canvas diversity, operator stats.
 - 2026-05-28 — `agent-tools/binding-watch.mjs` + `agent-tools/trait-reader.mjs` shipped. Binding monitor (detects transfers/awakenings/unbindings) and ERC-7496 trait reader with TraitGatedPredicate access check.
+- 2026-05-28 — `agent-tools/toolpass-bond.mjs` shipped. Verifies permanent bond property, prepares dry-run transfer. Research doc: `research/2026-05-28-toolpass-bonding.md`.

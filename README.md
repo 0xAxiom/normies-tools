@@ -18,6 +18,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **binding-watch.mjs** | Monitor agent binding changes — detects new awakenings, NFT transfers, operator shifts, and unbindings. Diffs against previous state to surface only changes. |
 | **trait-reader.mjs** | Read ERC-7496 dynamic traits for any Normie, both on-chain and from the API. Supports `--check-gate` to verify TraitGatedPredicate access for the Normie's TBA. |
 | **compose.py** | Outreach DM composer. One awakened Normie reaches out to another, persona-grounded on both sides. |
+| **toolpass-bond.mjs** | Verify and prepare Tool Pass bonding to a Normie's TBA on Base. Checks deployment status, permanent bond property, and generates dry-run transfer TX. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
