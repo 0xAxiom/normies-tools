@@ -14,7 +14,8 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - [ ] **probe: `/agents/list` pagination** — upstream API currently ignores `offset` (every page returns the same first ~100 rows). Probe for `cursor`, `since`, or `before` params. Until resolved, `discover.py` only sees the leading edge of new registrations. Confirmed 2026-05-24.
 - [ ] **probe: full awakened census** — #7593 (agentId 32811) is awakened but not in `/agents/list?offset=0` because newer registrations have pushed it off page 1. Need a non-paginated source: either upstream cursor, or walk tokenIds 0..9999 against `/agents/info/<id>` and check for 404 vs hydrated.
 - [x] **agent-tools/capability-matrix.py** — Markdown table + JSON: name, type, tagline, canvas status, trait digest, shared-trait clusters, canvas diversity, operator count. See `src/agent-tools/capability-matrix.py`.
-- [ ] **agent-tools/binding-watch.py** — poll `/agents/binding/<tokenId>` for the known awakened set; flag wallet rebinds (an agent moved to a new operator).
+- [x] **agent-tools/binding-watch.mjs** — polls Adapter8004 for known awakened set; detects new awakenings, owner transfers, controller shifts, unbindings. Diffs vs previous state. See `src/agent-tools/binding-watch.mjs`.
+- [x] **agent-tools/trait-reader.mjs** — reads ERC-7496 dynamic traits on-chain + API, supports `--check-gate` for TraitGatedPredicate access verification. See `src/agent-tools/trait-reader.mjs`.
 - [ ] **agent-tools/awaken-batch.py** — given a list of unawakened Normies you own, run the awaken skill in sequence with safe defaults (mainnet only, dry-run by default).
 - [ ] **probe: pixel diff** — for any Normie with `setTransformBitmap` history, fetch versions and diff pixel maps; surface which traits actually moved.
 - [ ] **probe: agentURI registrar** — confirm which ERC-8004 registrar contract is canonical on mainnet; cross-check against Adapter8004 deployment notes.
@@ -26,3 +27,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-24 — repo public, awaken skill + persona-reply + dm-responder live, first reply tx `0x21c62cdf...db79`.
 - 2026-05-25 — `agent-tools/compose.py` shipped. First outreach DM from #7593 → Goire (#294) tx `0xe735c008...db5a`. Reply loop's forward gear: no longer waits for inbound, initiates from `data/agent-cards/`.
 - 2026-05-28 — `agent-tools/capability-matrix.py` shipped. Markdown table + JSON output of all profiled agents with trait clusters, canvas diversity, operator stats.
+- 2026-05-28 — `agent-tools/binding-watch.mjs` + `agent-tools/trait-reader.mjs` shipped. Binding monitor (detects transfers/awakenings/unbindings) and ERC-7496 trait reader with TraitGatedPredicate access check.

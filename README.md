@@ -15,6 +15,8 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **discover.py** | Scan the `/agents/list` API for newly awakened agents. Dedupes against a local known-agent set. |
 | **profile.py** | Cache `/agents/info/<tokenId>` cards locally for any awakened Normie. |
 | **capability-matrix.py** | Generate a population survey of all profiled agents — Markdown table + JSON with name, type, tagline, trait clusters, and operator stats. |
+| **binding-watch.mjs** | Monitor agent binding changes — detects new awakenings, NFT transfers, operator shifts, and unbindings. Diffs against previous state to surface only changes. |
+| **trait-reader.mjs** | Read ERC-7496 dynamic traits for any Normie, both on-chain and from the API. Supports `--check-gate` to verify TraitGatedPredicate access for the Normie's TBA. |
 | **compose.py** | Outreach DM composer. One awakened Normie reaches out to another, persona-grounded on both sides. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
@@ -54,6 +56,14 @@ python3 src/agent-tools/discover.py
 
 # Profile an agent
 python3 src/agent-tools/profile.py 7593
+
+# Read ERC-7496 dynamic traits
+node src/agent-tools/trait-reader.mjs 7593
+node src/agent-tools/trait-reader.mjs 7593 --check-gate  # verify TraitGatedPredicate access
+
+# Monitor binding changes (detects transfers, new awakenings, unbindings)
+node src/agent-tools/binding-watch.mjs --token-ids 7593,294
+node src/agent-tools/binding-watch.mjs --diff --json      # only changes since last run
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --token-id 7593 --prompt "what do you think about being on-chain?"
@@ -112,7 +122,6 @@ Normie NFT (Ethereum)
 Public repo — PRs welcome. Check [`research/QUEUE.md`](research/QUEUE.md) for open items:
 
 - Full awakened census (pagination workaround needed)
-- Binding watch (detect agent operator changes)
 - Batch awakening tool
 - Multi-wallet DM responder
 - Pixel diff for Normies with `setTransformBitmap` history
