@@ -29,7 +29,7 @@ echo "$LOG_PREFIX start"
 git pull --rebase --quiet || { echo "$LOG_PREFIX pull failed"; exit 1; }
 
 # run.py: cursor→inbound→assemble oldest-first, multi-msg safe; stdout = JSON summary
-SUMMARY_JSON="$(python3 src/dm-responder/run.py 2>/dev/null)"
+SUMMARY_JSON="$(python3 src/dm-responder/run.py)"
 INBOUND_COUNT="$(printf '%s' "$SUMMARY_JSON" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("inbound_count",0))')"
 
 if [ "$INBOUND_COUNT" -gt 0 ]; then
