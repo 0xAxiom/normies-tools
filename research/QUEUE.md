@@ -23,7 +23,9 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - [ ] **dm-responder: multi-wallet** — generalize beyond `0x523E...dde5` so any awakened Normie wallet can run the same loop with its own `agents/info` system prompt.
 - [x] **agent-tools/toolpass-bond.mjs** — verify Tool Pass bonding state + dry-run transfer TX for any Normie's TBA on Base. Confirms permanent bond property (owner() reverts since Normies contract is mainnet-only). See `src/agent-tools/toolpass-bond.mjs` + `research/2026-05-28-toolpass-bonding.md`.
 - [ ] **execute: bond Tool Pass #21 to Normie #7593** — transfer ready, awaiting Melted approval. Treasury holds AXTP #21, target is TBA `0x69EddaB7...7b4D` on Base. Irreversible.
-- [ ] **research: cross-chain owner resolution** — AccountV3's owner() on Base reverts because Normies is mainnet-only. Research Hyperlane, CCIP, or LayerZero Read adapters that could resolve ownership cross-chain, unlocking TBA execute() on Base.
+- [x] **research: cross-chain owner resolution** — 5 approaches evaluated. Winner: OPStack native bridge (already built into AccountV3 via `OPAddressAliasHelper`). Base is OPStack, so L1 TBA can authorize L2 TBA execution via `L1CrossDomainMessenger.sendMessage()`. No new contracts. See `research/2026-05-28-cross-chain-owner-resolution.md`.
+- [ ] **build: L1→L2 TBA bridge script** — implement the OPStack bridge flow: deploy TBAs on L1+Base, encode L2 action, send via L1CrossDomainMessenger. Normie owner (`0x8a87...2278`) signs L1 tx. Dry-run first.
+- [ ] **build: TBA deployer script** — `createAccount()` on both L1 and Base registries for any Normie. Prerequisite for cross-chain execution.
 
 ## Done
 
@@ -32,3 +34,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-28 — `agent-tools/capability-matrix.py` shipped. Markdown table + JSON output of all profiled agents with trait clusters, canvas diversity, operator stats.
 - 2026-05-28 — `agent-tools/binding-watch.mjs` + `agent-tools/trait-reader.mjs` shipped. Binding monitor (detects transfers/awakenings/unbindings) and ERC-7496 trait reader with TraitGatedPredicate access check.
 - 2026-05-28 — `agent-tools/toolpass-bond.mjs` shipped. Verifies permanent bond property, prepares dry-run transfer. Research doc: `research/2026-05-28-toolpass-bonding.md`.
+- 2026-05-28 — Cross-chain owner resolution research complete. OPStack native bridge is best path (already in AccountV3). See `research/2026-05-28-cross-chain-owner-resolution.md`.
