@@ -8,7 +8,7 @@
 #   4. Commit + push whatever changed.
 #
 # Env:
-#   ~/.axiom/wallet.env must export BOTCHAN_PRIVATE_KEY.
+#   Requires PRIVATE_KEY in env (or ~/.axiom/wallet.env).
 #
 # Exit codes:
 #   0 — handled (either posted, or skipped cleanly)

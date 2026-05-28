@@ -1,93 +1,121 @@
 # normies-tools
 
-Tooling around ERC-8004 [Normies](https://normies.art): a one-command awaken skill, a persona-grounded reply pipeline, and an on-chain DM responder running live for Normie **#7593**.
+Open-source tooling for [Normies](https://normies.art) — the 10,000 pseudonymous CC0 NFTs on Ethereum that can be awakened as autonomous ERC-8004 agents.
 
-> **First on-chain persona reply** posted 2026-05-24:
-> [basescan.org/tx/0x21c62cdf…db79](https://basescan.org/tx/0x21c62cdf813ec2e2376dac7827712aacc173a9bf6c224e5aac342110e465db79)
+This repo provides everything you need to work with Normie agents: identity resolution, TBA wallets, on-chain messaging, persona generation, and the awakening pipeline itself.
 
-The repo runs an autonomous 4x/day build loop — each fire either replies to a fresh inbound on the [@AxiomBot](https://x.com/AxiomBot) wallet feed or advances the next survey/build step under `notes/` and `src/`.
+## Tools
 
-## Layout
+### Agent Tools (`src/agent-tools/`)
 
-| Path | What |
-|---|---|
-| `skills/awaken-normie/` | Awaken a Normie as an ERC-8004 agent via the Adapter8004 proxy (mainnet, Base, Sepolia). Self-contained skill — see [`skills/awaken-normie/SKILL.md`](skills/awaken-normie/SKILL.md). |
-| `src/persona-reply/` | Reads the live `/agents/info/<tokenId>` system prompt and runs an LLM (Ollama by default) to produce an in-character reply. Stdlib + HTTP only. |
-| `src/dm-responder/` | Botchan/Net Protocol DM responder: `inbound.py` reads the feed, `cursor.py` gates retroactive replies, `assemble.py` runs the persona pipeline and (with `--live`) posts on chain. |
-| `src/agent-tools/` | Tooling that works with the broader awakened-Normie population: `discover.py` (scan `/agents/list`), `profile.py` (cache `/agents/info/<tokenId>` cards), `compose.py` (outreach DM composer — Normie #7593 reaches out first to other awakened Normies, persona-grounded both sides). Grows from `research/QUEUE.md`. |
-| `research/` | Live research + build queue. The 2x/day research loop picks the top open item and ships a tool, probe, or finding. |
-| `data/` | Cached `/agents/info/7593.json`, cursor state, append-only receipts, agent cards (`data/agent-cards/`), known-agent set. |
-| `notes/` | One dated note per build fire — what was probed, what was learned, what's next. |
-| `JOURNAL.md` | One line per fire: phase, outcome. |
-| `scripts/build-once.sh` | The 4x/day responder loop body. |
-| `scripts/research-once.sh` | The 2x/day research + build loop body. |
+| Tool | What it does |
+|------|-------------|
+| **tba-resolver.mjs** | Compute any Normie's ERC-6551 Token Bound Account address. Deterministic CREATE2 — no RPC needed, works offline, supports batch mode. |
+| **normie-lookup.mjs** | Full identity resolver. Returns NFT owner, awakened status, ERC-8004 agent binding (via Adapter8004), TBA address, and persona. `--full` adds backstory, personality, trait details, and TBA balances on mainnet + Base. |
+| **discover.py** | Scan the `/agents/list` API for newly awakened agents. Dedupes against a local known-agent set. |
+| **profile.py** | Cache `/agents/info/<tokenId>` cards locally for any awakened Normie. |
+| **capability-matrix.py** | Generate a population survey of all profiled agents — Markdown table + JSON with name, type, tagline, trait clusters, and operator stats. |
+| **compose.py** | Outreach DM composer. One awakened Normie reaches out to another, persona-grounded on both sides. |
 
-## Live pipeline
+### Awaken Skill (`skills/awaken-normie/`)
 
+One-command awakening of any Normie as an ERC-8004 agent via the Adapter8004 proxy. Supports mainnet, Base, and Sepolia.
+
+See [`skills/awaken-normie/SKILL.md`](skills/awaken-normie/SKILL.md) for full docs.
+
+### Persona Reply (`src/persona-reply/`)
+
+Reads the live `/agents/info/<tokenId>` system prompt and generates an in-character reply using a local LLM (Ollama). Stdlib + HTTP only, no API keys required.
+
+### DM Responder (`src/dm-responder/`)
+
+On-chain messaging via [Net Protocol](https://github.com/aspect-build/net-protocol) (botchan). Reads inbound messages, generates persona-grounded replies, and posts them on-chain.
+
+## Quick Start
+
+```bash
+git clone https://github.com/0xAxiom/normies-tools.git
+cd normies-tools
+npm install
+
+# Resolve a Normie's TBA address (no RPC needed)
+node src/agent-tools/tba-resolver.mjs 7593
+
+# Batch resolve
+node src/agent-tools/tba-resolver.mjs --batch 294,3837,7593,9524
+
+# Full identity lookup (requires INFURA_API_KEY or MAINNET_RPC_URL)
+export INFURA_API_KEY=your_key
+node src/agent-tools/normie-lookup.mjs 7593
+node src/agent-tools/normie-lookup.mjs 7593 --full
+
+# Discover awakened agents
+python3 src/agent-tools/discover.py
+
+# Profile an agent
+python3 src/agent-tools/profile.py 7593
+
+# Generate persona reply (requires Ollama running locally)
+python3 src/persona-reply/reply.py --token-id 7593 --prompt "what do you think about being on-chain?"
 ```
-botchan read <wallet>  →  inbound.py (filter sender != self, ts > cursor)
-                                │
-                                ▼
-                       assemble.py --live  →  reply.py --llm (Ollama)
-                                │
-                                ▼
-                       botchan comment <feed> <parent> <body>
-                                │
-                                ▼
-                       cursor.py set <ts>  +  receipts.jsonl append
-```
 
-### Dry-run
+## On-Chain Messaging
 
-```sh
+The DM responder posts replies via Net Protocol. To run it:
+
+```bash
+# Set your wallet key
+export PRIVATE_KEY=your_private_key
+
+# Dry-run (prints reply + command, does not broadcast)
 python3 src/dm-responder/inbound.py --cursor "$(python3 src/dm-responder/cursor.py get)" |
   python3 src/dm-responder/assemble.py --stdin
-```
 
-Prints the persona reply + the `botchan comment` command that would post it. Does not broadcast.
-
-### Live
-
-```sh
+# Live (broadcasts on-chain)
 python3 src/dm-responder/inbound.py --cursor "$(python3 src/dm-responder/cursor.py get)" |
   python3 src/dm-responder/assemble.py --stdin --live
 ```
 
-On success: tx broadcasts, cursor advances to the inbound's timestamp, a receipt line lands in `data/dm-responder-receipts.jsonl`.
+## Architecture
 
-Requires `BOTCHAN_PRIVATE_KEY` in env (the responder wallet is `0x523Eff3dB03938eaa31a5a6FBd41E3B9d23edde5`).
+```
+Normie NFT (Ethereum)
+  └── Adapter8004 → ERC-8004 Agent Identity
+  └── ERC-6551 TBA (deterministic, same address on every chain)
+        └── Can hold tokens, NFTs, execute transactions
+        └── AccountV3Upgradable implementation
+```
 
-## Cron loops
+- **Normies contract:** `0x9Eb6E2025B64f340691e424b7fe7022fFDE12438` (Ethereum)
+- **Adapter8004:** `0xde152AfB7db5373F34876E1499fbD893A82dD336` (Ethereum)
+- **ERC-8004 Registry:** `0x8004A169FB4a3325136EB29fA0ceB6D2e539a432` (Ethereum + Base)
+- **ERC-6551 Registry:** `0x000000006551c19487814612e58FE06813775758` (all chains)
 
-Two independent loops, both committing back to `main`:
+## Requirements
 
-- **Responder loop (4x/day, `:17` slot)** — `scripts/build-once.sh` pulls, replies live if there's fresh inbound past the cursor, otherwise idles cleanly. Fires 00:17, 06:17, 12:17, 18:17 PT.
-- **Research + build loop (2x/day, `:33` slot)** — `scripts/research-once.sh` runs `discover.py` against `/agents/list`, profiles any new awakened agents into `data/agent-cards/`, then takes the top open item from `research/QUEUE.md`. Fires 09:33, 21:33 PT.
+- **Node 18+** for agent tools and awaken skill
+- **Python 3.10+** (stdlib only — no pip install needed)
+- **Ollama** (optional) for persona reply generation — pull `qwen3.5:9b` or any model
+- **botchan CLI** (optional) for on-chain messaging — [github.com/MeltedMindz/botchan](https://github.com/MeltedMindz/botchan)
 
-Wire either via `launchd` (macOS, plists in `~/Library/LaunchAgents/com.axiom.normies-*.plist`) or `cron` (linux).
+## Environment Variables
+
+| Variable | Required | What |
+|----------|----------|------|
+| `INFURA_API_KEY` | For on-chain lookups | Ethereum RPC access |
+| `MAINNET_RPC_URL` | Alternative to Infura | Direct mainnet RPC URL |
+| `BASE_RPC_URL` | For Base chain checks | Base RPC URL |
+| `PRIVATE_KEY` | For on-chain messaging | Wallet private key for Net Protocol posts |
 
 ## Contributing
 
-Public repo. Fork it, branch on a queue item, open a PR. Good starting points:
+Public repo — PRs welcome. Check [`research/QUEUE.md`](research/QUEUE.md) for open items:
 
-- Pick anything from [`research/QUEUE.md`](research/QUEUE.md).
-- Add your own awakened Normie to the responder pipeline (`dm-responder/multi-wallet` is on the queue).
-- Build a tool against the live agent population — `data/agent-cards/` is the source of truth for what's awake.
-
-## Prereqs
-
-- Node 18+ for the awaken skill (`cd skills/awaken-normie/scripts && npm install`)
-- Python 3.10+ (stdlib only — no requirements file)
-- [botchan CLI](https://github.com/MeltedMindz/botchan) on PATH (`brew install botchan` or repo install)
-- Ollama running locally with `llama3.2:3b` pulled, OR override `--model`
-
-## Context
-
-- 5/16: scaffold + first cron fire, wallet primed for Normie transfer
-- 5/16–5/20: Phase 1/2 survey — pixels, traits, SVG, owner, agents/info, agents/binding, agents/list
-- 5/21–5/22: Phase 3 — `persona-reply` reads cached `agents-info-7593.json`, LLM-wired, in-character replies on greeting + non-greeting probes
-- 5/22–5/24: Phase 4 — `dm-responder` inbound parser, cursor gate, dry-run assembler
-- **2026-05-24: live on chain.** Cursor advances on every successful reply; receipts are append-only.
+- Full awakened census (pagination workaround needed)
+- Binding watch (detect agent operator changes)
+- Batch awakening tool
+- Multi-wallet DM responder
+- Pixel diff for Normies with `setTransformBitmap` history
 
 ## License
 

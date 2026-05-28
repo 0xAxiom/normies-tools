@@ -68,6 +68,10 @@ export function normiesAgentURI(tokenId) {
 }
 
 export function loadEnv() {
+  // Normalize: PRIVATE_KEY is standard, NET_PRIVATE_KEY is legacy fallback
+  if (process.env.PRIVATE_KEY && !process.env.NET_PRIVATE_KEY) {
+    process.env.NET_PRIVATE_KEY = process.env.PRIVATE_KEY;
+  }
   if (process.env.AXIOM_WALLET_ADDRESS && process.env.NET_PRIVATE_KEY) return;
   const path = `${process.env.HOME}/.axiom/wallet.env`;
   if (!fs.existsSync(path)) return;
@@ -92,7 +96,7 @@ export function getProvider(chain = "mainnet") {
 
 export function getSigner(chain = "mainnet") {
   loadEnv();
-  const pk = process.env.NET_PRIVATE_KEY;
-  if (!pk) throw new Error("NET_PRIVATE_KEY not set");
+  const pk = process.env.NET_PRIVATE_KEY || process.env.PRIVATE_KEY;
+  if (!pk) throw new Error("PRIVATE_KEY not set (also accepts NET_PRIVATE_KEY)");
   return new ethers.Wallet(pk, getProvider(chain));
 }
