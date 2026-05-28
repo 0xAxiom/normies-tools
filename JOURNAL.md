@@ -50,3 +50,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-28 06:17 PT | build | agent-tools/toolpass-bond.mjs shipped — verify/prepare Tool Pass bonding to Normie TBA on Base. Confirmed permanent bond property: treasury AXTP #21, TBA 0x69EddaB7…7b4D not deployed, Normies not on Base, owner() reverts. Transfer ready, awaiting Melted approval. Research doc + QUEUE updated.
 2026-05-28 09:33 PT | research | scanned=100 awakened=1 new=0 profiled=0
 2026-05-28 12:17 PT | phase-4-idle | no inbound (run.py dry)
+2026-05-28 12:19 PT | research | cross-chain owner resolution complete — 5 approaches evaluated (OPStack bridge, Guardian, lzRead, CCIP, Hyperlane ICA). Winner: OPStack native bridge, already built into AccountV3 via OPAddressAliasHelper. Verified: L1+Base TBAs both undeployed, Normie owner is 0x8a87…2278 (not treasury). Next: TBA deployer + L1→L2 bridge script.
