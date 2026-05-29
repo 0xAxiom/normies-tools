@@ -20,6 +20,7 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - [ ] **probe: pixel diff** — for any Normie with `setTransformBitmap` history, fetch versions and diff pixel maps; surface which traits actually moved.
 - [ ] **probe: agentURI registrar** — confirm which ERC-8004 registrar contract is canonical on mainnet; cross-check against Adapter8004 deployment notes.
 - [x] **persona-reply: model switch** — A/B tested qwen3.5:2b vs qwen3.5:9b vs llama3.2:3b. Winner: qwen3.5:9b (24/25 fidelity checks, 99w avg, best conciseness). Default switched. See `src/persona-reply/ab-test.py` + `data/ab-test-results.json`.
+- [x] **agent-tools/normie-post.mjs** — true Normie-reply pipeline: persona-reply → tba-bridge encoder → ready-to-sign cast command. Normie's TBA posts on Net Protocol via L1→L2 bridge. See `src/agent-tools/normie-post.mjs`.
 - [ ] **dm-responder: multi-wallet** — generalize beyond `0x523E...dde5` so any awakened Normie wallet can run the same loop with its own `agents/info` system prompt.
 - [x] **agent-tools/toolpass-bond.mjs** — verify Tool Pass bonding state + dry-run transfer TX for any Normie's TBA on Base. Confirms permanent bond property (owner() reverts since Normies contract is mainnet-only). See `src/agent-tools/toolpass-bond.mjs` + `research/2026-05-28-toolpass-bonding.md`.
 - [ ] **execute: bond Tool Pass #21 to Normie #7593** — transfer ready, awaiting Melted approval. Treasury holds AXTP #21, target is TBA `0x69EddaB7...7b4D` on Base. Irreversible.
@@ -37,3 +38,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-28 — Cross-chain owner resolution research complete. OPStack native bridge is best path (already in AccountV3). See `research/2026-05-28-cross-chain-owner-resolution.md`.
 - 2026-05-28 — `agent-tools/tba-deployer.mjs` shipped. Deploy TBAs on L1/Base via `createAccount()`, dry-run + gas estimate by default. Verified: #7593 TBA undeployed on both chains, ~96k gas each.
 - 2026-05-29 — `agent-tools/tba-bridge.mjs` shipped. L1→L2 OPStack bridge encoder with alias verification. Presets for NFT transfer + botchan post. Normie #7593 owner now confirmed as treasury (`0x523E...dde5`), not `0x8a87...2278`.
+- 2026-05-29 — `agent-tools/normie-post.mjs` shipped. True Normie-reply pipeline: persona LLM → Net Protocol post encoded as L1→L2 bridge TX. Also fixed tba-bridge.mjs to use real Net Protocol contract (`0x00000000B24D62781dB359b07880a105cD0b64e6`) and correct `sendMessage(string,string,bytes)` ABI.

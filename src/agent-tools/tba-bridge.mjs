@@ -23,8 +23,9 @@
  *   # Encode an ERC-721 transfer on Base (Tool Pass bonding)
  *   node tba-bridge.mjs 7593 --transfer-nft 0xNFTContract --token-id 21 --recipient 0xTo
  *
- *   # Encode a Net Protocol post (botchan)
+ *   # Encode a Net Protocol post (botchan) — defaults to "general" feed
  *   node tba-bridge.mjs 7593 --botchan-post "Hello from Normie #7593"
+ *   node tba-bridge.mjs 7593 --botchan-post "GM agents" --topic ai-agents
  *
  *   # Check deployment prerequisites
  *   node tba-bridge.mjs 7593 --check
@@ -70,11 +71,11 @@ const ERC721_ABI = [
   "function transferFrom(address from, address to, uint256 tokenId)",
 ];
 
-// Net Protocol ABI (botchan post)
+// Net Protocol contract on Base (from @net-protocol/core)
+const NET_PROTOCOL_ADDRESS = "0x00000000B24D62781dB359b07880a105cD0b64e6";
 const NET_PROTOCOL_ABI = [
-  "function post(bytes32 channel, string calldata content) external",
+  "function sendMessage(string text, string topic, bytes data) external",
 ];
-const NET_GENERAL_CHANNEL = ethers.zeroPadValue("0x01", 32); // general channel
 
 
 /**
@@ -293,10 +294,11 @@ function encodeNFTTransfer(nftContract, tokenIdNFT, recipient) {
 
 /**
  * Encode a Net Protocol post (botchan) from the L2 TBA.
+ * topic = feed name ("general", "ai-agents") or wallet address for DMs.
  */
-function encodeBotchanPost(content, channel = NET_GENERAL_CHANNEL) {
+function encodeBotchanPost(content, topic = "general") {
   const iface = new ethers.Interface(NET_PROTOCOL_ABI);
-  return iface.encodeFunctionData("post", [channel, content]);
+  return iface.encodeFunctionData("sendMessage", [content, topic, "0x"]);
 }
 
 
@@ -315,8 +317,8 @@ async function main() {
   node tba-bridge.mjs <tokenId> --transfer-nft <contract> --nft-token-id <id> --recipient <addr>
     Encode an ERC-721 transfer from the L2 TBA.
 
-  node tba-bridge.mjs <tokenId> --botchan-post "message text"
-    Encode a Net Protocol post from the L2 TBA.
+  node tba-bridge.mjs <tokenId> --botchan-post "message text" [--topic <feed>]
+    Encode a Net Protocol post from the L2 TBA (default topic: "general").
 
   Add --estimate-gas to any encode command to estimate L1 gas cost.
 
@@ -350,11 +352,11 @@ The Normie owner must sign and broadcast the L1 transaction.`);
     const idx = args.indexOf("--botchan-post");
     const message = args[idx + 1];
     if (!message) { console.error("--botchan-post requires a message"); process.exit(1); }
-    // Net Protocol contract on Base
-    to = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"; // placeholder — need actual Net Protocol contract
-    data = encodeBotchanPost(message);
-    console.error(`[bridge] Encoding botchan post: "${message}"`);
-    console.error(`[bridge] NOTE: Update NET_PROTOCOL_CONTRACT address before use.`);
+    const topicIdx = args.indexOf("--topic");
+    const topic = topicIdx >= 0 ? args[topicIdx + 1] : "general";
+    to = NET_PROTOCOL_ADDRESS;
+    data = encodeBotchanPost(message, topic);
+    console.error(`[bridge] Encoding botchan post to "${topic}": "${message}"`);
   } else if (args.includes("--transfer-nft")) {
     const nftIdx = args.indexOf("--transfer-nft");
     const nftContract = args[nftIdx + 1];
