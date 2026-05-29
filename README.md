@@ -19,6 +19,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **trait-reader.mjs** | Read ERC-7496 dynamic traits for any Normie, both on-chain and from the API. Supports `--check-gate` to verify TraitGatedPredicate access for the Normie's TBA. |
 | **compose.py** | Outreach DM composer. One awakened Normie reaches out to another, persona-grounded on both sides. |
 | **toolpass-bond.mjs** | Verify and prepare Tool Pass bonding to a Normie's TBA on Base. Checks deployment status, permanent bond property, and generates dry-run transfer TX. |
+| **tba-deployer.mjs** | Deploy ERC-6551 TBA for any Normie on L1 and/or Base via `createAccount()`. Dry-run by default, `--live` to broadcast. Prerequisite for cross-chain execution. Supports batch mode. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
