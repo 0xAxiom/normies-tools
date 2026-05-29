@@ -70,7 +70,7 @@ node src/agent-tools/binding-watch.mjs --token-ids 7593,294
 node src/agent-tools/binding-watch.mjs --diff --json      # only changes since last run
 
 # Generate persona reply (requires Ollama running locally)
-python3 src/persona-reply/reply.py --token-id 7593 --prompt "what do you think about being on-chain?"
+python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
 ```
 
 ## On-Chain Messaging
