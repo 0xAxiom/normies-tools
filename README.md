@@ -20,6 +20,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **compose.py** | Outreach DM composer. One awakened Normie reaches out to another, persona-grounded on both sides. |
 | **toolpass-bond.mjs** | Verify and prepare Tool Pass bonding to a Normie's TBA on Base. Checks deployment status, permanent bond property, and generates dry-run transfer TX. |
 | **tba-deployer.mjs** | Deploy ERC-6551 TBA for any Normie on L1 and/or Base via `createAccount()`. Dry-run by default, `--live` to broadcast. Prerequisite for cross-chain execution. Supports batch mode. |
+| **tba-bridge.mjs** | L1→L2 cross-chain execution via OPStack native bridge. Encodes the full TX chain: L1 TBA → L1CrossDomainMessenger → L2 TBA. Supports raw calldata, ERC-721 transfers, and Net Protocol posts. Dry-run only — outputs calldata + cast command for the Normie owner to sign. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
