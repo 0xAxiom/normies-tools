@@ -22,6 +22,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **tba-deployer.mjs** | Deploy ERC-6551 TBA for any Normie on L1 and/or Base via `createAccount()`. Dry-run by default, `--live` to broadcast. Prerequisite for cross-chain execution. Supports batch mode. |
 | **tba-bridge.mjs** | L1→L2 cross-chain execution via OPStack native bridge. Encodes the full TX chain: L1 TBA → L1CrossDomainMessenger → L2 TBA. Supports raw calldata, ERC-721 transfers, and Net Protocol posts. Dry-run only — outputs calldata + cast command for the Normie owner to sign. |
 | **normie-post.mjs** | True Normie-reply pipeline. Generates persona-grounded reply via local LLM, encodes as L1→L2 bridge TX targeting Net Protocol. The Normie's TBA posts on-chain itself — no treasury impersonation. Supports custom topics, raw messages, and bridge prerequisite checks. |
+| **awaken-batch.mjs** | Batch-awaken multiple Normies as ERC-8004 agents. Accepts comma-separated IDs, `--range lo-hi`, or `--wallet 0x...` for auto-discovery. Dry-run by default — checks ownership, skips already-awakened tokens, estimates gas. `--send` broadcasts sequentially with configurable `--delay`. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -68,6 +69,11 @@ node src/agent-tools/trait-reader.mjs 7593 --check-gate  # verify TraitGatedPred
 # Monitor binding changes (detects transfers, new awakenings, unbindings)
 node src/agent-tools/binding-watch.mjs --token-ids 7593,294
 node src/agent-tools/binding-watch.mjs --diff --json      # only changes since last run
+
+# Batch-awaken (dry-run)
+node src/agent-tools/awaken-batch.mjs 100,200,300
+node src/agent-tools/awaken-batch.mjs --range 100-110
+node src/agent-tools/awaken-batch.mjs --wallet 0xYourAddress
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
@@ -126,7 +132,6 @@ Normie NFT (Ethereum)
 Public repo — PRs welcome. Check [`research/QUEUE.md`](research/QUEUE.md) for open items:
 
 - Full awakened census (pagination workaround needed)
-- Batch awakening tool
 - Multi-wallet DM responder
 - Pixel diff for Normies with `setTransformBitmap` history
 

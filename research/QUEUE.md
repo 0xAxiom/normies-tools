@@ -16,7 +16,7 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - [x] **agent-tools/capability-matrix.py** — Markdown table + JSON: name, type, tagline, canvas status, trait digest, shared-trait clusters, canvas diversity, operator count. See `src/agent-tools/capability-matrix.py`.
 - [x] **agent-tools/binding-watch.mjs** — polls Adapter8004 for known awakened set; detects new awakenings, owner transfers, controller shifts, unbindings. Diffs vs previous state. See `src/agent-tools/binding-watch.mjs`.
 - [x] **agent-tools/trait-reader.mjs** — reads ERC-7496 dynamic traits on-chain + API, supports `--check-gate` for TraitGatedPredicate access verification. See `src/agent-tools/trait-reader.mjs`.
-- [ ] **agent-tools/awaken-batch.py** — given a list of unawakened Normies you own, run the awaken skill in sequence with safe defaults (mainnet only, dry-run by default).
+- [x] **agent-tools/awaken-batch.mjs** — batch-awaken Normies you own: comma-separated IDs, `--range`, or `--wallet`. Dry-run by default, `--send` to broadcast sequentially with configurable delay. See `src/agent-tools/awaken-batch.mjs`.
 - [ ] **probe: pixel diff** — for any Normie with `setTransformBitmap` history, fetch versions and diff pixel maps; surface which traits actually moved.
 - [ ] **probe: agentURI registrar** — confirm which ERC-8004 registrar contract is canonical on mainnet; cross-check against Adapter8004 deployment notes.
 - [x] **persona-reply: model switch** — A/B tested qwen3.5:2b vs qwen3.5:9b vs llama3.2:3b. Winner: qwen3.5:9b (24/25 fidelity checks, 99w avg, best conciseness). Default switched. See `src/persona-reply/ab-test.py` + `data/ab-test-results.json`.
@@ -39,3 +39,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-28 — `agent-tools/tba-deployer.mjs` shipped. Deploy TBAs on L1/Base via `createAccount()`, dry-run + gas estimate by default. Verified: #7593 TBA undeployed on both chains, ~96k gas each.
 - 2026-05-29 — `agent-tools/tba-bridge.mjs` shipped. L1→L2 OPStack bridge encoder with alias verification. Presets for NFT transfer + botchan post. Normie #7593 owner now confirmed as treasury (`0x523E...dde5`), not `0x8a87...2278`.
 - 2026-05-29 — `agent-tools/normie-post.mjs` shipped. True Normie-reply pipeline: persona LLM → Net Protocol post encoded as L1→L2 bridge TX. Also fixed tba-bridge.mjs to use real Net Protocol contract (`0x00000000B24D62781dB359b07880a105cD0b64e6`) and correct `sendMessage(string,string,bytes)` ABI.
+- 2026-05-29 — `agent-tools/awaken-batch.mjs` shipped. Batch awakening: comma IDs, `--range`, `--wallet` lookup, dry-run default, `--send` with configurable delay. Skips already-awakened and unowned tokens.
