@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""Orchestrator for the Normie #7593 botchan DM responder.
+"""Orchestrator for the Normie botchan DM responder — any wallet.
 
 Full pipeline (one cron fire):
-    1. Read cursor from cursor.py get
-    2. Pull inbound posts newer than cursor via inbound.py --cursor <ts>
-    3. For each new message (oldest-first): pipe into assemble.py --stdin --live
-       - On success: cursor advances inside assemble.py
-       - On failure: stop (don't skip — gap would leave sender unread)
+    1. Read cursor from cursor.py get --self <addr>
+    2. Pull inbound posts newer than cursor via inbound.py --self <addr>
+    3. For each new message: pipe into assemble.py --stdin --token-id <id> [--live]
     4. Print summary JSON to stdout
 
 Usage:
-    python3 run.py              # live mode (default)
-    python3 run.py --dry-run    # pass dry-run to assemble (no on-chain writes)
-    python3 run.py --limit 20   # narrow botchan read window
+    python3 run.py                              # Normie #7593 (default)
+    python3 run.py --token-id 294 --self 0x...  # another Normie's wallet
+    python3 run.py --dry-run                    # no on-chain writes
 
 Exit codes: 0 = success (0 or more replies sent), 1 = error.
 Stdlib only. No on-chain writes except via assemble.py --live.
@@ -31,9 +29,12 @@ ASSEMBLE_PY = os.path.join(HERE, "assemble.py")
 CURSOR_PY = os.path.join(HERE, "cursor.py")
 
 
-def get_cursor() -> int:
+SELF_DEFAULT = "0x523Eff3dB03938eaa31a5a6FBd41E3B9d23edde5"
+
+
+def get_cursor(self_addr: str) -> int:
     proc = subprocess.run(
-        ["python3", CURSOR_PY, "get"],
+        ["python3", CURSOR_PY, "--self", self_addr, "get"],
         capture_output=True, text=True,
     )
     if proc.returncode != 0:
@@ -41,9 +42,10 @@ def get_cursor() -> int:
     return int(proc.stdout.strip() or "0")
 
 
-def get_inbound(cursor: int, limit: int) -> list:
+def get_inbound(cursor: int, limit: int, self_addr: str) -> list:
     proc = subprocess.run(
-        ["python3", INBOUND_PY, "--cursor", str(cursor), "--limit", str(limit)],
+        ["python3", INBOUND_PY, "--self", self_addr,
+         "--cursor", str(cursor), "--limit", str(limit)],
         capture_output=True, text=True,
     )
     if proc.returncode != 0:
@@ -54,9 +56,9 @@ def get_inbound(cursor: int, limit: int) -> list:
         sys.exit(f"inbound.py returned non-JSON: {e}\n{proc.stdout[:400]}")
 
 
-def assemble_one(item: dict, live: bool) -> dict:
+def assemble_one(item: dict, live: bool, token_id: int = 7593) -> dict:
     """Run assemble.py on a single inbound item. Returns parsed output dict."""
-    cmd = ["python3", ASSEMBLE_PY, "--stdin"]
+    cmd = ["python3", ASSEMBLE_PY, "--stdin", "--token-id", str(token_id)]
     if live:
         cmd.append("--live")
     proc = subprocess.run(
@@ -79,11 +81,15 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true",
                     help="print commands but do not post on-chain")
     ap.add_argument("--limit", type=int, default=50)
+    ap.add_argument("--token-id", type=int, default=7593,
+                    help="Normie token ID for persona (default: 7593)")
+    ap.add_argument("--self", dest="self_addr", default=SELF_DEFAULT,
+                    help="wallet address to read inbound from")
     args = ap.parse_args()
 
     live = not args.dry_run
-    cursor = get_cursor()
-    inbound = get_inbound(cursor, args.limit)
+    cursor = get_cursor(args.self_addr)
+    inbound = get_inbound(cursor, args.limit, args.self_addr)
 
     # Oldest first so cursor advances in order
     inbound.sort(key=lambda p: p.get("timestamp", 0))
@@ -93,7 +99,7 @@ def main() -> int:
         sender = item.get("sender", "?")
         ts = item.get("timestamp", 0)
         try:
-            out = assemble_one(item, live=live)
+            out = assemble_one(item, live=live, token_id=args.token_id)
             results.append({
                 "status": "ok",
                 "sender": sender,

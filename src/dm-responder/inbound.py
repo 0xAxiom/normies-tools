@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
-"""Inbound parser for the Normie #7593 botchan DM responder.
+"""Inbound parser for the Normie botchan DM responder — any wallet.
 
 Read-only. No post, no on-chain write. Shells out to `botchan read <self>
 --json` and emits the subset of posts that look like inbound mentions:
 sender != self AND timestamp > cursor (when --cursor is passed).
 
 Usage:
-    python3 inbound.py                       # last 50, no cursor filter
-    python3 inbound.py --limit 20            # narrow window
+    python3 inbound.py                       # last 50, default wallet
+    python3 inbound.py --self 0xabc...       # different wallet
     python3 inbound.py --cursor 1777566773   # only fresher than this ts
-    python3 inbound.py --self 0xabc...       # override self addr (default = our wallet)
 
 Output (stdout): JSON array of {index, sender, text, timestamp, topic, commentCount}.
-The reply+post half lands the next fire — keep this file post-free.
 """
 
 import argparse

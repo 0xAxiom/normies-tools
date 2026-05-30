@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Reply-assembler for the Normie #7593 botchan DM responder.
+"""Reply-assembler for the Normie botchan DM responder.
 
 End-to-end persona pipeline. Given one inbound candidate, runs it through
 ../persona-reply/reply.py --llm and either prints the on-chain `botchan
 comment` call (default DRY-RUN) or executes it (--live).
+
+Supports any awakened Normie via --token-id (default: 7593).
 
 Two input modes:
     --stdin                     read a single inbound JSON object (or array;
@@ -15,6 +17,7 @@ Flags:
     --live                      actually execute the botchan comment; on
                                 success advance the cursor and append a
                                 receipt line to data/dm-responder-receipts.jsonl
+    --token-id <id>             Normie token ID for persona (default: 7593)
 
 Output (stdout): JSON with {inbound, persona, model, reply, cmd, executed,
                             tx_hash?, raw_output?}.
@@ -53,9 +56,9 @@ def load_inbound(args) -> dict:
     return {"sender": args.sender, "timestamp": args.ts, "text": args.text}
 
 
-def run_reply(text: str) -> dict:
+def run_reply(text: str, token_id: int = 7593) -> dict:
     proc = subprocess.run(
-        ["python3", REPLY_PY, "--llm", text],
+        ["python3", REPLY_PY, "--llm", "--token-id", str(token_id), text],
         capture_output=True, text=True,
     )
     if proc.returncode != 0:
@@ -101,6 +104,8 @@ def main() -> int:
     ap.add_argument("--self", dest="self_addr", default=SELF_DEFAULT)
     ap.add_argument("--live", action="store_true",
                     help="execute botchan comment for real; advance cursor on success")
+    ap.add_argument("--token-id", type=int, default=7593,
+                    help="Normie token ID for persona (default: 7593)")
     args = ap.parse_args()
 
     inbound = load_inbound(args)
@@ -108,7 +113,7 @@ def main() -> int:
     ts = inbound["timestamp"]
     text = inbound["text"]
 
-    persona = run_reply(text)
+    persona = run_reply(text, token_id=args.token_id)
     reply_text = persona["reply"]
 
     parent = f"{sender}:{ts}"
