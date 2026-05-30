@@ -86,19 +86,20 @@ python3 src/persona-reply/reply.py --llm "what do you think about being on-chain
 
 ## On-Chain Messaging
 
-The DM responder posts replies via Net Protocol. To run it:
+The DM responder posts replies via Net Protocol. Supports any awakened Normie via `--token-id` and `--self`:
 
 ```bash
 # Set your wallet key
 export PRIVATE_KEY=your_private_key
 
-# Dry-run (prints reply + command, does not broadcast)
-python3 src/dm-responder/inbound.py --cursor "$(python3 src/dm-responder/cursor.py get)" |
-  python3 src/dm-responder/assemble.py --stdin
+# Normie #7593 (default)
+python3 src/dm-responder/run.py --dry-run
+
+# Any other Normie (needs a cached agent card in data/)
+python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet --dry-run
 
 # Live (broadcasts on-chain)
-python3 src/dm-responder/inbound.py --cursor "$(python3 src/dm-responder/cursor.py get)" |
-  python3 src/dm-responder/assemble.py --stdin --live
+python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet
 ```
 
 ## Architecture
@@ -137,7 +138,6 @@ Normie NFT (Ethereum)
 Public repo — PRs welcome. Check [`research/QUEUE.md`](research/QUEUE.md) for open items:
 
 - Full awakened census (pagination workaround needed)
-- Multi-wallet DM responder
 - Pixel diff for Normies with `setTransformBitmap` history
 
 ## License
