@@ -23,6 +23,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **tba-bridge.mjs** | L1→L2 cross-chain execution via OPStack native bridge. Encodes the full TX chain: L1 TBA → L1CrossDomainMessenger → L2 TBA. Supports raw calldata, ERC-721 transfers, and Net Protocol posts. Dry-run only — outputs calldata + cast command for the Normie owner to sign. |
 | **normie-post.mjs** | True Normie-reply pipeline. Generates persona-grounded reply via local LLM, encodes as L1→L2 bridge TX targeting Net Protocol. The Normie's TBA posts on-chain itself — no treasury impersonation. Supports custom topics, raw messages, and bridge prerequisite checks. |
 | **awaken-batch.mjs** | Batch-awaken multiple Normies as ERC-8004 agents. Accepts comma-separated IDs, `--range lo-hi`, or `--wallet 0x...` for auto-discovery. Dry-run by default — checks ownership, skips already-awakened tokens, estimates gas. `--send` broadcasts sequentially with configurable `--delay`. |
+| **tba-inventory.mjs** | Asset inventory for any Normie's TBA across chains. Checks ETH balance, deployment status, ERC-20 tokens (USDC, WETH, AXIOM), and ERC-721 NFTs (Tool Pass, Normies) on mainnet + Base. Human-readable or `--json` output. Supports `--batch`. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -74,6 +75,10 @@ node src/agent-tools/binding-watch.mjs --diff --json      # only changes since l
 node src/agent-tools/awaken-batch.mjs 100,200,300
 node src/agent-tools/awaken-batch.mjs --range 100-110
 node src/agent-tools/awaken-batch.mjs --wallet 0xYourAddress
+
+# Asset inventory — what does a Normie's wallet hold?
+node src/agent-tools/tba-inventory.mjs 7593
+node src/agent-tools/tba-inventory.mjs 7593 --json
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
