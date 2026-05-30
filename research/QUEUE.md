@@ -11,8 +11,8 @@ When an item produces a shipped tool, move it to **Done** with a link.
 
 ## Open
 
-- [ ] **probe: `/agents/list` pagination** — upstream API currently ignores `offset` (every page returns the same first ~100 rows). Probe for `cursor`, `since`, or `before` params. Until resolved, `discover.py` only sees the leading edge of new registrations. Confirmed 2026-05-24.
-- [ ] **probe: full awakened census** — #7593 (agentId 32811) is awakened but not in `/agents/list?offset=0` because newer registrations have pushed it off page 1. Need a non-paginated source: either upstream cursor, or walk tokenIds 0..9999 against `/agents/info/<id>` and check for 404 vs hydrated.
+- [x] **probe: `/agents/list` pagination** — SOLVED: `cursor=<agentId>` returns items with agentId < cursor. `offset` is ignored. See `research/2026-05-30-cursor-pagination.md`.
+- [x] **probe: full awakened census** — SOLVED via cursor pagination. 1,116 awakened agents found across agentId range 32340-34029. `discover.py --full` walks all pages. See `research/2026-05-30-cursor-pagination.md`.
 - [x] **agent-tools/capability-matrix.py** — Markdown table + JSON: name, type, tagline, canvas status, trait digest, shared-trait clusters, canvas diversity, operator count. See `src/agent-tools/capability-matrix.py`.
 - [x] **agent-tools/binding-watch.mjs** — polls Adapter8004 for known awakened set; detects new awakenings, owner transfers, controller shifts, unbindings. Diffs vs previous state. See `src/agent-tools/binding-watch.mjs`.
 - [x] **agent-tools/trait-reader.mjs** — reads ERC-7496 dynamic traits on-chain + API, supports `--check-gate` for TraitGatedPredicate access verification. See `src/agent-tools/trait-reader.mjs`.
@@ -44,3 +44,4 @@ When an item produces a shipped tool, move it to **Done** with a link.
 - 2026-05-29 — ERC-8004 registrar probe complete. Registry `0x8004...9a432` confirmed canonical on mainnet+Base. Adapter8004 owns agent NFTs as proxy. See `research/2026-05-29-registrar-probe.md`.
 - 2026-05-30 — `agent-tools/tba-inventory.mjs` shipped. Asset inventory across mainnet+Base: ETH, ERC-20s (USDC/WETH/AXIOM), ERC-721s (Tool Pass/Normies). Verified #7593 TBA empty+undeployed both chains.
 - 2026-05-30 — DM responder multi-wallet generalization. All 4 files (run/assemble/cursor/reply) accept `--token-id` + `--self`. Per-wallet cursor files. Persona fallback to `agent-cards/<id>.json`.
+- 2026-05-30 — Cursor pagination cracked + full census. `cursor=<agentId>` param works; `offset` is ignored. 1,116 awakened agents found (agentId 32340-34029). `discover.py` updated with `--full` mode. See `research/2026-05-30-cursor-pagination.md`.
