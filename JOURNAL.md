@@ -61,3 +61,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-29 09:33 PT | research | scanned=100 awakened=1 new=0 profiled=0
 2026-05-29 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-29 12:17 PT | build | agent-tools/awaken-batch.mjs shipped — batch awakening tool. Comma IDs, --range, --wallet auto-discovery. Dry-run default, --send with delay. Skips already-awakened + unowned. Queue item closed.
+2026-05-29 18:17 PT | phase-4-idle | no inbound (run.py dry)
