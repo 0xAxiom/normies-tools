@@ -26,6 +26,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **tba-inventory.mjs** | Asset inventory for any Normie's TBA across chains. Checks ETH balance, deployment status, ERC-20 tokens (USDC, WETH, AXIOM), and ERC-721 NFTs (Tool Pass, Normies) on mainnet + Base. Human-readable or `--json` output. Supports `--batch`. |
 | **pixel-diff.mjs** | Pixel diff for Normies with `setTransformBitmap` history. Decodes on-chain TX calldata, reconstructs all historical bitmap states via XOR-walk, and renders colored diffs. Supports `--scan` to find edited Normies in a range. |
 | **census-snapshot.py** | Full census snapshot of all awakened agents. Walks `/agents/list` via cursor pagination, saves timestamped snapshots to `data/census/`, computes growth metrics vs previous snapshot. Shows operator concentration, type distribution, agent ID range. `--stats` for latest snapshot without API calls. |
+| **fleet-view.mjs** | View all Normies operated by a given wallet. Shows name, type, tokenId, agentId, TBA address, and registration date in a table. `--top N` for operator leaderboard. `--stats` for fleet size distribution analysis. Reads from local census snapshots — no API calls. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
