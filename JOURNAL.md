@@ -76,3 +76,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-31 00:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-31 00:17 PT | build | agent-tools/census-snapshot.py shipped — full census snapshots to data/census/YYYY-MM-DD.json with growth metrics. First snapshot: 1,117 agents (+1), 469 unique operators, 95% Human, top operator 64 agents. --stats mode for offline reads.
 2026-05-31 06:17 PT | phase-4-idle | no inbound (run.py dry)
+2026-05-31 06:17 PT | build | agent-tools/fleet-view.mjs shipped — operator fleet viewer. Table with TBA resolution, --top N leaderboard, --stats distribution. Key data: 469 operators, 67% solo, top 10% control 50%, max fleet=64. No API calls (reads census).
