@@ -78,3 +78,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-31 06:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-31 06:17 PT | build | agent-tools/fleet-view.mjs shipped — operator fleet viewer. Table with TBA resolution, --top N leaderboard, --stats distribution. Key data: 469 operators, 67% solo, top 10% control 50%, max fleet=64. No API calls (reads census).
 2026-05-31 09:33 PT | research | scanned=100 awakened=100 new=3 profiled=3
+2026-05-31 12:17 PT | phase-4-idle | no inbound (run.py dry)
