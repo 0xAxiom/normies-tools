@@ -27,6 +27,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **pixel-diff.mjs** | Pixel diff for Normies with `setTransformBitmap` history. Decodes on-chain TX calldata, reconstructs all historical bitmap states via XOR-walk, and renders colored diffs. Supports `--scan` to find edited Normies in a range. |
 | **census-snapshot.py** | Full census snapshot of all awakened agents. Walks `/agents/list` via cursor pagination, saves timestamped snapshots to `data/census/`, computes growth metrics vs previous snapshot. Shows operator concentration, type distribution, agent ID range. `--stats` for latest snapshot without API calls. |
 | **fleet-view.mjs** | View all Normies operated by a given wallet. Shows name, type, tokenId, agentId, TBA address, and registration date in a table. `--top N` for operator leaderboard. `--stats` for fleet size distribution analysis. Reads from local census snapshots — no API calls. |
+| **awakening-rate.mjs** | Analyze awakening velocity from census data. Daily rates, 7-day moving averages, busiest days, top recent operators, trend indicators (accelerating/decelerating/steady). `--days N` for recent window, `--operators` for operator focus. No API calls. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -87,6 +88,10 @@ node src/agent-tools/tba-inventory.mjs 7593 --json
 python3 src/agent-tools/census-snapshot.py
 python3 src/agent-tools/census-snapshot.py --stats  # latest snapshot, no API calls
 
+# Awakening velocity analysis (reads census data, no API calls)
+node src/agent-tools/awakening-rate.mjs
+node src/agent-tools/awakening-rate.mjs --days 7 --json
+
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
 ```
@@ -144,8 +149,8 @@ Normie NFT (Ethereum)
 
 Public repo — PRs welcome. Check [`research/QUEUE.md`](research/QUEUE.md) for open items:
 
-- Full awakened census (pagination workaround needed)
-- Pixel diff for Normies with `setTransformBitmap` history
+- Tool Pass bonding execution (awaiting approval)
+- Cross-chain TBA execution via OPStack bridge (scripts ready, awaiting live deployment)
 
 ## License
 

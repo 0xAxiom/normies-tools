@@ -1,6 +1,69 @@
 {
   "agents": [
     {
+      "agentId": "34075",
+      "name": "Remik",
+      "registeredAt": "1780251335",
+      "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+      "tokenId": "4284",
+      "txHash": "0x9141b634246237cdc2a5a128f184eb2d9d996f60a13e322d5015d608f5191ca9",
+      "type": "Human"
+    },
+    {
+      "agentId": "34074",
+      "name": "Xien",
+      "registeredAt": "1780251251",
+      "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+      "tokenId": "4283",
+      "txHash": "0xec44368c15a8a50250922e9dfa7f74898a6921c4c46f7813b913d439ac124db7",
+      "type": "Human"
+    },
+    {
+      "agentId": "34073",
+      "name": "Dela",
+      "registeredAt": "1780251167",
+      "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+      "tokenId": "4282",
+      "txHash": "0xf82f474f5ab3e99e115ab322ce5b278ffb48972893b22b40de7cc27aacb468d9",
+      "type": "Human"
+    },
+    {
+      "agentId": "34072",
+      "name": "Ivlo",
+      "registeredAt": "1780251131",
+      "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+      "tokenId": "4277",
+      "txHash": "0x0c475500221a031de6020187785b33dba2eab1a6842aa390ece489185242a5bb",
+      "type": "Human"
+    },
+    {
+      "agentId": "34070",
+      "name": "Belik",
+      "registeredAt": "1780250999",
+      "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+      "tokenId": "1199",
+      "txHash": "0x6542f583301c5d95f4e3be099d2fd68bb9e009f1a831e70e2f6aa86d9112ff96",
+      "type": "Human"
+    },
+    {
+      "agentId": "34036",
+      "name": "Qunel",
+      "registeredAt": "1780214483",
+      "registeredBy": "0x602457534e8201bc4434bb95c04b4b76aa2874e0",
+      "tokenId": "955",
+      "txHash": "0x1a31f9d0b238650827b3053ee3dd9ad131eb583a468455b7a2b34e661b6d0877",
+      "type": "Human"
+    },
+    {
+      "agentId": "34032",
+      "name": "Wymor",
+      "registeredAt": "1780214483",
+      "registeredBy": "0x602457534e8201bc4434bb95c04b4b76aa2874e0",
+      "tokenId": "6000",
+      "txHash": "0xce7cf9f387c9c674e08f767b46f2c51c69298148d7eafd8ff1c4706dadd11a3d",
+      "type": "Human"
+    },
+    {
       "agentId": "34031",
       "name": "Nutor",
       "registeredAt": "1780210103",
@@ -10054,13 +10117,67 @@
       "type": "Human"
     }
   ],
-  "snapshotAt": 1780211958,
+  "snapshotAt": 1780255090,
   "snapshotDate": "2026-05-31",
   "stats": {
     "agentIdRange": [
       "32340",
-      "34031"
+      "34075"
     ],
+    "growth": {
+      "lostAgents": 0,
+      "netGrowth": 7,
+      "newAgentSamples": [
+        {
+          "agentId": "34075",
+          "name": "Remik",
+          "registeredAt": "1780251335",
+          "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+          "tokenId": "4284",
+          "txHash": "0x9141b634246237cdc2a5a128f184eb2d9d996f60a13e322d5015d608f5191ca9",
+          "type": "Human"
+        },
+        {
+          "agentId": "34074",
+          "name": "Xien",
+          "registeredAt": "1780251251",
+          "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+          "tokenId": "4283",
+          "txHash": "0xec44368c15a8a50250922e9dfa7f74898a6921c4c46f7813b913d439ac124db7",
+          "type": "Human"
+        },
+        {
+          "agentId": "34073",
+          "name": "Dela",
+          "registeredAt": "1780251167",
+          "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+          "tokenId": "4282",
+          "txHash": "0xf82f474f5ab3e99e115ab322ce5b278ffb48972893b22b40de7cc27aacb468d9",
+          "type": "Human"
+        },
+        {
+          "agentId": "34072",
+          "name": "Ivlo",
+          "registeredAt": "1780251131",
+          "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+          "tokenId": "4277",
+          "txHash": "0x0c475500221a031de6020187785b33dba2eab1a6842aa390ece489185242a5bb",
+          "type": "Human"
+        },
+        {
+          "agentId": "34070",
+          "name": "Belik",
+          "registeredAt": "1780250999",
+          "registeredBy": "0xa587479fcc2074b0073fa5ceaa1c872a6490fb70",
+          "tokenId": "1199",
+          "txHash": "0x6542f583301c5d95f4e3be099d2fd68bb9e009f1a831e70e2f6aa86d9112ff96",
+          "type": "Human"
+        }
+      ],
+      "newAgents": 7,
+      "previousDate": "2026-05-31",
+      "previousTotal": 1117
+    },
     "topOperators": [
       {
         "address": "0xd94ea61f089e6ec2c97c16c33f6f262552b1c270",
@@ -10103,13 +10220,13 @@
         "count": 17
       }
     ],
-    "total": 1117,
+    "total": 1124,
     "typeDistribution": {
       "Agent": 19,
       "Alien": 16,
       "Cat": 21,
-      "Human": 1061
+      "Human": 1068
     },
-    "uniqueOperators": 469
+    "uniqueOperators": 471
   }
 }
