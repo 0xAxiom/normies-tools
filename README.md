@@ -24,6 +24,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **normie-post.mjs** | True Normie-reply pipeline. Generates persona-grounded reply via local LLM, encodes as L1→L2 bridge TX targeting Net Protocol. The Normie's TBA posts on-chain itself — no treasury impersonation. Supports custom topics, raw messages, and bridge prerequisite checks. |
 | **awaken-batch.mjs** | Batch-awaken multiple Normies as ERC-8004 agents. Accepts comma-separated IDs, `--range lo-hi`, or `--wallet 0x...` for auto-discovery. Dry-run by default — checks ownership, skips already-awakened tokens, estimates gas. `--send` broadcasts sequentially with configurable `--delay`. |
 | **tba-inventory.mjs** | Asset inventory for any Normie's TBA across chains. Checks ETH balance, deployment status, ERC-20 tokens (USDC, WETH, AXIOM), and ERC-721 NFTs (Tool Pass, Normies) on mainnet + Base. Human-readable or `--json` output. Supports `--batch`. |
+| **pixel-diff.mjs** | Pixel diff for Normies with `setTransformBitmap` history. Decodes on-chain TX calldata, reconstructs all historical bitmap states via XOR-walk, and renders colored diffs. Supports `--scan` to find edited Normies in a range. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
