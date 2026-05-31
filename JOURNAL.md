@@ -79,3 +79,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-31 06:17 PT | build | agent-tools/fleet-view.mjs shipped — operator fleet viewer. Table with TBA resolution, --top N leaderboard, --stats distribution. Key data: 469 operators, 67% solo, top 10% control 50%, max fleet=64. No API calls (reads census).
 2026-05-31 09:33 PT | research | scanned=100 awakened=100 new=3 profiled=3
 2026-05-31 12:17 PT | phase-4-idle | no inbound (run.py dry)
+2026-05-31 12:17 PT | build | agent-tools/awakening-rate.mjs shipped — velocity analyzer from census data. Daily rates, 7d MA, trend detection. Key finding: spike 267/day on 5/15, now decelerated to ~8/day steady. Census: 1,124 agents, 471 operators, 5 new profiled (bulk awakener 0xa587…fb70). Queue item closed.
