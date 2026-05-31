@@ -71,3 +71,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-30 09:33 PT | research | scanned=100 awakened=1 new=0 profiled=0
 2026-05-30 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-05-30 12:17 PT | build | cursor pagination cracked — `cursor=<agentId>` param works, `offset` ignored. discover.py updated with --full mode. First full census: 1,116 awakened agents (agentId 32340-34029). Two queue items closed; 2 open remain (pixel diff + Tool Pass bond).
+2026-05-30 18:17 PT | phase-4-idle | no inbound (run.py dry)
