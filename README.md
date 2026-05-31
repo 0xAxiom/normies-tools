@@ -25,6 +25,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **awaken-batch.mjs** | Batch-awaken multiple Normies as ERC-8004 agents. Accepts comma-separated IDs, `--range lo-hi`, or `--wallet 0x...` for auto-discovery. Dry-run by default — checks ownership, skips already-awakened tokens, estimates gas. `--send` broadcasts sequentially with configurable `--delay`. |
 | **tba-inventory.mjs** | Asset inventory for any Normie's TBA across chains. Checks ETH balance, deployment status, ERC-20 tokens (USDC, WETH, AXIOM), and ERC-721 NFTs (Tool Pass, Normies) on mainnet + Base. Human-readable or `--json` output. Supports `--batch`. |
 | **pixel-diff.mjs** | Pixel diff for Normies with `setTransformBitmap` history. Decodes on-chain TX calldata, reconstructs all historical bitmap states via XOR-walk, and renders colored diffs. Supports `--scan` to find edited Normies in a range. |
+| **census-snapshot.py** | Full census snapshot of all awakened agents. Walks `/agents/list` via cursor pagination, saves timestamped snapshots to `data/census/`, computes growth metrics vs previous snapshot. Shows operator concentration, type distribution, agent ID range. `--stats` for latest snapshot without API calls. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -80,6 +81,10 @@ node src/agent-tools/awaken-batch.mjs --wallet 0xYourAddress
 # Asset inventory — what does a Normie's wallet hold?
 node src/agent-tools/tba-inventory.mjs 7593
 node src/agent-tools/tba-inventory.mjs 7593 --json
+
+# Population census snapshot
+python3 src/agent-tools/census-snapshot.py
+python3 src/agent-tools/census-snapshot.py --stats  # latest snapshot, no API calls
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
