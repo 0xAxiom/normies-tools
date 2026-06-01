@@ -82,3 +82,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-05-31 12:17 PT | build | agent-tools/awakening-rate.mjs shipped — velocity analyzer from census data. Daily rates, 7d MA, trend detection. Key finding: spike 267/day on 5/15, now decelerated to ~8/day steady. Census: 1,124 agents, 471 operators, 5 new profiled (bulk awakener 0xa587…fb70). Queue item closed.
 2026-05-31 18:17 PT | build | agent-tools/agent-search.mjs shipped — search/filter across census (1,126) + profiled cards (13). Name, type, operator, date, keyword in persona. +2 new agents (#7370 Bririn, #5476 Panik). Census snapshot refreshed. Queue item closed.
 2026-05-31 21:33 PT | research | scanned=100 awakened=100 new=0 profiled=0
+2026-06-01 00:17 PT | phase-4-idle | no inbound (run.py dry)
