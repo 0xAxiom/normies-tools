@@ -28,6 +28,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **census-snapshot.py** | Full census snapshot of all awakened agents. Walks `/agents/list` via cursor pagination, saves timestamped snapshots to `data/census/`, computes growth metrics vs previous snapshot. Shows operator concentration, type distribution, agent ID range. `--stats` for latest snapshot without API calls. |
 | **fleet-view.mjs** | View all Normies operated by a given wallet. Shows name, type, tokenId, agentId, TBA address, and registration date in a table. `--top N` for operator leaderboard. `--stats` for fleet size distribution analysis. Reads from local census snapshots — no API calls. |
 | **awakening-rate.mjs** | Analyze awakening velocity from census data. Daily rates, 7-day moving averages, busiest days, top recent operators, trend indicators (accelerating/decelerating/steady). `--days N` for recent window, `--operators` for operator focus. No API calls. |
+| **agent-search.mjs** | Search and filter awakened agents by name, type, operator, date range, or keyword in persona/backstory. Queries census data (1000+ agents) and enriched agent cards. `--profiled` for cards-only. `--stats` for type distribution. `--json` output. No API calls. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -91,6 +92,12 @@ python3 src/agent-tools/census-snapshot.py --stats  # latest snapshot, no API ca
 # Awakening velocity analysis (reads census data, no API calls)
 node src/agent-tools/awakening-rate.mjs
 node src/agent-tools/awakening-rate.mjs --days 7 --json
+
+# Search agents by name, type, keyword, or date
+node src/agent-tools/agent-search.mjs "Goire"                    # by name
+node src/agent-tools/agent-search.mjs --type Cat --limit 5       # by type
+node src/agent-tools/agent-search.mjs --keyword "conviction"     # in persona text
+node src/agent-tools/agent-search.mjs --since 2026-05-28 --json  # recent, JSON output
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
