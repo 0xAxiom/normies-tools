@@ -30,6 +30,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **awakening-rate.mjs** | Analyze awakening velocity from census data. Daily rates, 7-day moving averages, busiest days, top recent operators, trend indicators (accelerating/decelerating/steady). `--days N` for recent window, `--operators` for operator focus. No API calls. |
 | **agent-search.mjs** | Search and filter awakened agents by name, type, operator, date range, or keyword in persona/backstory. Queries census data (1000+ agents) and enriched agent cards. `--profiled` for cards-only. `--stats` for type distribution. `--json` output. No API calls. |
 | **readiness-check.mjs** | Autonomy readiness report for any Normie. Checks all 7 prerequisites for full on-chain agent operation: ownership, ERC-8004 awakening, TBA deployment (L1+Base), Tool Pass bonding, funding, cross-chain execution readiness, and active persona. Scores 0-7 with level label and actionable next steps. `--json` and `--batch` supported. |
+| **ecosystem-report.mjs** | Aggregated ecosystem summary from census data. Population, velocity (7-day avg + trend), type distribution, operator concentration (Gini coefficient, top 10% control), recent activity. `--brief` for tweet-sized output, `--json` for machine-readable. No API calls. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -103,6 +104,11 @@ node src/agent-tools/agent-search.mjs --since 2026-05-28 --json  # recent, JSON 
 # Autonomy readiness check — what does a Normie need to become fully autonomous?
 node src/agent-tools/readiness-check.mjs 7593
 node src/agent-tools/readiness-check.mjs --batch 294,3837,7593 --json
+
+# Ecosystem report — aggregated stats, trends, operator concentration
+node src/agent-tools/ecosystem-report.mjs
+node src/agent-tools/ecosystem-report.mjs --brief  # tweet-sized summary
+node src/agent-tools/ecosystem-report.mjs --json   # machine-readable
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
