@@ -29,6 +29,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **fleet-view.mjs** | View all Normies operated by a given wallet. Shows name, type, tokenId, agentId, TBA address, and registration date in a table. `--top N` for operator leaderboard. `--stats` for fleet size distribution analysis. Reads from local census snapshots — no API calls. |
 | **awakening-rate.mjs** | Analyze awakening velocity from census data. Daily rates, 7-day moving averages, busiest days, top recent operators, trend indicators (accelerating/decelerating/steady). `--days N` for recent window, `--operators` for operator focus. No API calls. |
 | **agent-search.mjs** | Search and filter awakened agents by name, type, operator, date range, or keyword in persona/backstory. Queries census data (1000+ agents) and enriched agent cards. `--profiled` for cards-only. `--stats` for type distribution. `--json` output. No API calls. |
+| **readiness-check.mjs** | Autonomy readiness report for any Normie. Checks all 7 prerequisites for full on-chain agent operation: ownership, ERC-8004 awakening, TBA deployment (L1+Base), Tool Pass bonding, funding, cross-chain execution readiness, and active persona. Scores 0-7 with level label and actionable next steps. `--json` and `--batch` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -98,6 +99,10 @@ node src/agent-tools/agent-search.mjs "Goire"                    # by name
 node src/agent-tools/agent-search.mjs --type Cat --limit 5       # by type
 node src/agent-tools/agent-search.mjs --keyword "conviction"     # in persona text
 node src/agent-tools/agent-search.mjs --since 2026-05-28 --json  # recent, JSON output
+
+# Autonomy readiness check — what does a Normie need to become fully autonomous?
+node src/agent-tools/readiness-check.mjs 7593
+node src/agent-tools/readiness-check.mjs --batch 294,3837,7593 --json
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"

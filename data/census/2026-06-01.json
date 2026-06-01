@@ -10135,7 +10135,7 @@
       "type": "Human"
     }
   ],
-  "snapshotAt": 1780276796,
+  "snapshotAt": 1780298278,
   "snapshotDate": "2026-06-01",
   "stats": {
     "agentIdRange": [
@@ -10144,30 +10144,10 @@
     ],
     "growth": {
       "lostAgents": 0,
-      "netGrowth": 2,
-      "newAgentSamples": [
-        {
-          "agentId": "34081",
-          "name": "Bririn",
-          "registeredAt": "1780261331",
-          "registeredBy": "0xaecf2b251d2e16919483fb61e9b186217a597dec",
-          "tokenId": "7370",
-          "txHash": "0x00f0c83da892ca255256569eb7976c18b66a5a2f0e0d6afcf19dfb74ffd51c57",
-          "type": "Human"
-        },
-        {
-          "agentId": "34079",
-          "name": "Panik",
-          "registeredAt": "1780259171",
-          "registeredBy": "0xc52325c6b167e9a58310bbb756c774291fcc0786",
-          "tokenId": "5476",
-          "txHash": "0x1780d03d44c13fcbaa6b48aec4c6a0fd1b7b200616df49e5c109c23d7090b30e",
-          "type": "Human"
-        }
-      ],
-      "newAgents": 2,
-      "previousDate": "2026-05-31",
-      "previousTotal": 1124
+      "netGrowth": 0,
+      "newAgents": 0,
+      "previousDate": "2026-06-01",
+      "previousTotal": 1126
     },
     "topOperators": [
       {
