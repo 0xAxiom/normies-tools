@@ -88,3 +88,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-01 09:33 PT | research | scanned=100 awakened=100 new=0 profiled=0
 2026-06-01 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-01 12:17 PT | build | agent-tools/activation-planner.mjs shipped — full activation cost estimator with live gas prices. #7593: 4 steps (deploy L1+Base TBA, fund, bond Tool Pass), ~$4.05 total. Ordered exec plan with commands. Census: 1,126 agents (+0).
+2026-06-01 18:17 PT | build | agent-tools/wallet-report.mjs shipped — complete operator portfolio view. Combines fleet discovery (census) + readiness checks (on-chain) + activation costs (live gas). Tested: treasury #7593 = 3/7, $4.02 to full autonomy. Census: 1,128 agents (+2 new: Cyrin #4703, Sagik #1713, both profiled).
