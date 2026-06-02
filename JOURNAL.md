@@ -93,3 +93,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-02 06:17 PT | build | agent-tools/normie-dossier.mjs shipped — comprehensive identity dossier combining identity, TBA status, readiness (7-check), assets, persona, pixel history, census context. Tested #7593: 3/7 configured, operator rank #309/473. Census: 1,128 agents (+0).
 2026-06-02 09:33 PT | research | scanned=100 awakened=100 new=2 profiled=0
 2026-06-02 12:17 PT | phase-4-idle | no inbound (run.py dry)
+2026-06-02 12:17 PT | build | agent-tools/census-diff.mjs shipped — deep snapshot comparison: new/removed agents, operator fleet changes, type distribution shifts, Gini concentration trends, --all timeline mode. Tested across 3 snapshots (May 31-Jun 2). Data note: #3278 has empty type field in API (captured in diff output). Census: 1,128 agents (+0).
