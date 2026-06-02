@@ -10153,7 +10153,7 @@
       "type": "Human"
     }
   ],
-  "snapshotAt": 1780363091,
+  "snapshotAt": 1780385653,
   "snapshotDate": "2026-06-02",
   "stats": {
     "agentIdRange": [
@@ -10162,30 +10162,10 @@
     ],
     "growth": {
       "lostAgents": 0,
-      "netGrowth": 2,
-      "newAgentSamples": [
-        {
-          "agentId": "34093",
-          "name": "Cyrin",
-          "registeredAt": "1780351439",
-          "registeredBy": "0x5bfc01aa9e7c73dc1463c15e10e039f1c50c548d",
-          "tokenId": "4703",
-          "txHash": "0xb74326e9eb13ebafdeb7837d696209d0cfe7e46dbf4237a31a65f6ce5eed6513",
-          "type": "Human"
-        },
-        {
-          "agentId": "34091",
-          "name": "Sagik",
-          "registeredAt": "1780345211",
-          "registeredBy": "0x9b4c71dc5f864fdde2b30cfc938da62610940355",
-          "tokenId": "1713",
-          "txHash": "0x75dc2ef06036e0e96beb32830b9f33f2656e7ff09ace12748b6ed1644f5a4c20",
-          "type": "Human"
-        }
-      ],
-      "newAgents": 2,
-      "previousDate": "2026-06-01",
-      "previousTotal": 1126
+      "netGrowth": 0,
+      "newAgents": 0,
+      "previousDate": "2026-06-02",
+      "previousTotal": 1128
     },
     "topOperators": [
       {
