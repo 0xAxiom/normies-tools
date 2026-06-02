@@ -33,6 +33,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **ecosystem-report.mjs** | Aggregated ecosystem summary from census data. Population, velocity (7-day avg + trend), type distribution, operator concentration (Gini coefficient, top 10% control), recent activity. `--brief` for tweet-sized output, `--json` for machine-readable. No API calls. |
 | **activation-planner.mjs** | Full activation cost estimator for any Normie. Uses live gas prices on mainnet + Base to plan every step: awakening, TBA deployment, funding, Tool Pass bonding. Shows ordered execution plan with commands, gas estimates, and USD cost. `--batch` and `--json` supported. |
 | **wallet-report.mjs** | Complete portfolio view for any Normie operator. Finds all Normies a wallet operates (from census), runs readiness checks (on-chain), and builds a prioritized action plan. `--deep` adds live gas cost estimates. `--json` supported. |
+| **tba-census.mjs** | Population-level TBA deployment and funding scan across all awakened Normies. Uses JSON-RPC batching for efficiency (~90 calls for 1,100+ agents). Checks deployment status (L1+Base), ETH balances, Tool Pass bonds. Readiness distribution, top funded, top operators. Saves timestamped snapshots to `data/tba-census/`. `--sample N`, `--stats`, `--compare`, `--json` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -120,6 +121,13 @@ node src/agent-tools/activation-planner.mjs --batch 294,7593 --json
 node src/agent-tools/wallet-report.mjs 0xYourWalletAddress
 node src/agent-tools/wallet-report.mjs 0xYourWalletAddress --deep   # with cost estimates
 node src/agent-tools/wallet-report.mjs 0xYourWalletAddress --json
+
+# Population-level TBA census (all awakened agents, no API calls needed)
+node src/agent-tools/tba-census.mjs                   # full scan
+node src/agent-tools/tba-census.mjs --sample 50       # quick sample
+node src/agent-tools/tba-census.mjs --stats            # latest snapshot, no RPC
+node src/agent-tools/tba-census.mjs --compare          # diff two snapshots
+node src/agent-tools/tba-census.mjs --json             # machine-readable
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
