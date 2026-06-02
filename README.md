@@ -34,6 +34,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **activation-planner.mjs** | Full activation cost estimator for any Normie. Uses live gas prices on mainnet + Base to plan every step: awakening, TBA deployment, funding, Tool Pass bonding. Shows ordered execution plan with commands, gas estimates, and USD cost. `--batch` and `--json` supported. |
 | **wallet-report.mjs** | Complete portfolio view for any Normie operator. Finds all Normies a wallet operates (from census), runs readiness checks (on-chain), and builds a prioritized action plan. `--deep` adds live gas cost estimates. `--json` supported. |
 | **tba-census.mjs** | Population-level TBA deployment and funding scan across all awakened Normies. Uses JSON-RPC batching for efficiency (~90 calls for 1,100+ agents). Checks deployment status (L1+Base), ETH balances, Tool Pass bonds. Readiness distribution, top funded, top operators. Saves timestamped snapshots to `data/tba-census/`. `--sample N`, `--stats`, `--compare`, `--json` supported. |
+| **normie-dossier.mjs** | Comprehensive identity dossier for any Normie. Combines identity (owner, agent binding), TBA status (deployment + balances on L1/Base), autonomy readiness (7-check score), asset holdings (ERC-20s + NFTs), persona (backstory + personality), pixel edit history, and ecosystem context (operator rank, fleet size, registration date) from census data. One command, full picture. `--batch` and `--json` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -128,6 +129,10 @@ node src/agent-tools/tba-census.mjs --sample 50       # quick sample
 node src/agent-tools/tba-census.mjs --stats            # latest snapshot, no RPC
 node src/agent-tools/tba-census.mjs --compare          # diff two snapshots
 node src/agent-tools/tba-census.mjs --json             # machine-readable
+
+# Full identity dossier — everything about a Normie in one command
+node src/agent-tools/normie-dossier.mjs 7593
+node src/agent-tools/normie-dossier.mjs --batch 294,7593 --json
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"

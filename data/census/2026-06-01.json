@@ -7193,12 +7193,12 @@
     },
     {
       "agentId": "32686",
-      "name": "Cova",
+      "name": "Normie #3278",
       "registeredAt": "1778908823",
       "registeredBy": "0xe67c19d9dd8ffa21658599fbfda4b040b99e17fe",
       "tokenId": "3278",
       "txHash": "0x038f79b2c4fd5fa71516ff469f9078b23e0daca1e19f98f281f5daebc060c6a5",
-      "type": "Human"
+      "type": ""
     },
     {
       "agentId": "32685",
@@ -10135,7 +10135,7 @@
       "type": "Human"
     }
   ],
-  "snapshotAt": 1780298278,
+  "snapshotAt": 1780341553,
   "snapshotDate": "2026-06-01",
   "stats": {
     "agentIdRange": [
@@ -10193,10 +10193,11 @@
     ],
     "total": 1126,
     "typeDistribution": {
+      "": 1,
       "Agent": 19,
       "Alien": 16,
       "Cat": 21,
-      "Human": 1070
+      "Human": 1069
     },
     "uniqueOperators": 473
   }
