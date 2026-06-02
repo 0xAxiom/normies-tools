@@ -32,6 +32,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **readiness-check.mjs** | Autonomy readiness report for any Normie. Checks all 7 prerequisites for full on-chain agent operation: ownership, ERC-8004 awakening, TBA deployment (L1+Base), Tool Pass bonding, funding, cross-chain execution readiness, and active persona. Scores 0-7 with level label and actionable next steps. `--json` and `--batch` supported. |
 | **ecosystem-report.mjs** | Aggregated ecosystem summary from census data. Population, velocity (7-day avg + trend), type distribution, operator concentration (Gini coefficient, top 10% control), recent activity. `--brief` for tweet-sized output, `--json` for machine-readable. No API calls. |
 | **activation-planner.mjs** | Full activation cost estimator for any Normie. Uses live gas prices on mainnet + Base to plan every step: awakening, TBA deployment, funding, Tool Pass bonding. Shows ordered execution plan with commands, gas estimates, and USD cost. `--batch` and `--json` supported. |
+| **wallet-report.mjs** | Complete portfolio view for any Normie operator. Finds all Normies a wallet operates (from census), runs readiness checks (on-chain), and builds a prioritized action plan. `--deep` adds live gas cost estimates. `--json` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -114,6 +115,11 @@ node src/agent-tools/ecosystem-report.mjs --json   # machine-readable
 # Activation cost estimator — what does it cost to fully activate a Normie?
 node src/agent-tools/activation-planner.mjs 7593
 node src/agent-tools/activation-planner.mjs --batch 294,7593 --json
+
+# Wallet portfolio report — all your Normies, readiness, and action plan
+node src/agent-tools/wallet-report.mjs 0xYourWalletAddress
+node src/agent-tools/wallet-report.mjs 0xYourWalletAddress --deep   # with cost estimates
+node src/agent-tools/wallet-report.mjs 0xYourWalletAddress --json
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
