@@ -38,6 +38,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **normie-dossier.mjs** | Comprehensive identity dossier for any Normie. Combines identity (owner, agent binding), TBA status (deployment + balances on L1/Base), autonomy readiness (7-check score), asset holdings (ERC-20s + NFTs), persona (backstory + personality), pixel edit history, and ecosystem context (operator rank, fleet size, registration date) from census data. One command, full picture. `--batch` and `--json` supported. |
 | **normie-activate.mjs** | Step-by-step activation orchestrator. Chains all steps: readiness check → deploy TBAs (L1+Base) → fund → bond Tool Pass. Dry-run by default shows commands; `--live` executes on-chain. `--skip-bond` excludes irreversible Tool Pass bonding. `--step <id>` for single-step execution. `--batch` and `--json` supported. |
 | **normie-events.mjs** | On-chain event scanner. Queries Ethereum mainnet for Normie ecosystem events: awakenings (AgentBound from Adapter8004), transfers, and burns. Configurable block range or `--since` date. `--type` filter, `--save` to `data/events/`, `--json` for machine-readable. |
+| **watchlist.mjs** | Track a set of Normies and detect state changes over time. Manage a watchlist of token IDs, snapshot their on-chain + API state, and diff against previous snapshots to surface changes: ownership transfers, new awakenings, TBA deployments, funding changes, Tool Pass bonds, and persona updates. Retry with exponential backoff for RPC rate limits. `--json` and `--since N` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -155,6 +156,14 @@ node src/agent-tools/normie-events.mjs --blocks 7200       # last 24 hours
 node src/agent-tools/normie-events.mjs --since 2026-06-01  # since date
 node src/agent-tools/normie-events.mjs --type awakening    # filter by type
 node src/agent-tools/normie-events.mjs --save --json       # save + machine-readable
+
+# Watchlist — track specific Normies for state changes
+node src/agent-tools/watchlist.mjs add 7593 294 3837       # add to watchlist
+node src/agent-tools/watchlist.mjs list                     # show current watchlist
+node src/agent-tools/watchlist.mjs check                    # snapshot + diff all watched
+node src/agent-tools/watchlist.mjs check --json             # machine-readable output
+node src/agent-tools/watchlist.mjs check --since 5          # show last 5 snapshots history
+node src/agent-tools/watchlist.mjs remove 294               # remove from watchlist
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
