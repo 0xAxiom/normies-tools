@@ -98,3 +98,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-02 21:33 PT | research | scanned=100 awakened=100 new=4 profiled=4
 2026-06-03 00:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-03 00:17 PT | build | agent-tools/normie-events.mjs shipped — on-chain event scanner. Queries Adapter8004 AgentBound (awakenings) + Normies Transfer events via eth_getLogs. Block range or --since date, --type filter, --save to data/events/, --json. First 24h scan: 68 events (64 transfers, 4 awakenings, 2 burns to dead address). Census: 1,132 agents (+4).
+2026-06-03 06:17 PT | phase-4-idle | no inbound (run.py dry)
