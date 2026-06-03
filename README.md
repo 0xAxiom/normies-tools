@@ -36,6 +36,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **census-diff.mjs** | Deep comparison between two census snapshots. Shows new awakenings, departed agents, operator fleet changes, type distribution shifts, and concentration trends. `--all` for timeline across all snapshots, `--json` for machine-readable. No API calls. |
 | **tba-census.mjs** | Population-level TBA deployment and funding scan across all awakened Normies. Uses JSON-RPC batching for efficiency (~90 calls for 1,100+ agents). Checks deployment status (L1+Base), ETH balances, Tool Pass bonds. Readiness distribution, top funded, top operators. Saves timestamped snapshots to `data/tba-census/`. `--sample N`, `--stats`, `--compare`, `--json` supported. |
 | **normie-dossier.mjs** | Comprehensive identity dossier for any Normie. Combines identity (owner, agent binding), TBA status (deployment + balances on L1/Base), autonomy readiness (7-check score), asset holdings (ERC-20s + NFTs), persona (backstory + personality), pixel edit history, and ecosystem context (operator rank, fleet size, registration date) from census data. One command, full picture. `--batch` and `--json` supported. |
+| **normie-activate.mjs** | Step-by-step activation orchestrator. Chains all steps: readiness check → deploy TBAs (L1+Base) → fund → bond Tool Pass. Dry-run by default shows commands; `--live` executes on-chain. `--skip-bond` excludes irreversible Tool Pass bonding. `--step <id>` for single-step execution. `--batch` and `--json` supported. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -140,6 +141,12 @@ node src/agent-tools/census-diff.mjs --json                     # machine-readab
 # Full identity dossier — everything about a Normie in one command
 node src/agent-tools/normie-dossier.mjs 7593
 node src/agent-tools/normie-dossier.mjs --batch 294,7593 --json
+
+# Activation orchestrator — deploy TBAs, fund, bond Tool Pass in one command
+node src/agent-tools/normie-activate.mjs 7593                     # dry-run: show steps
+node src/agent-tools/normie-activate.mjs 7593 --live --skip-bond  # execute (skip irreversible bond)
+node src/agent-tools/normie-activate.mjs 7593 --step deploy-l1 --live  # single step
+node src/agent-tools/normie-activate.mjs --batch 294,7593 --json  # batch dry-run
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
