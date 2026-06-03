@@ -37,6 +37,7 @@ This repo provides everything you need to work with Normie agents: identity reso
 | **tba-census.mjs** | Population-level TBA deployment and funding scan across all awakened Normies. Uses JSON-RPC batching for efficiency (~90 calls for 1,100+ agents). Checks deployment status (L1+Base), ETH balances, Tool Pass bonds. Readiness distribution, top funded, top operators. Saves timestamped snapshots to `data/tba-census/`. `--sample N`, `--stats`, `--compare`, `--json` supported. |
 | **normie-dossier.mjs** | Comprehensive identity dossier for any Normie. Combines identity (owner, agent binding), TBA status (deployment + balances on L1/Base), autonomy readiness (7-check score), asset holdings (ERC-20s + NFTs), persona (backstory + personality), pixel edit history, and ecosystem context (operator rank, fleet size, registration date) from census data. One command, full picture. `--batch` and `--json` supported. |
 | **normie-activate.mjs** | Step-by-step activation orchestrator. Chains all steps: readiness check → deploy TBAs (L1+Base) → fund → bond Tool Pass. Dry-run by default shows commands; `--live` executes on-chain. `--skip-bond` excludes irreversible Tool Pass bonding. `--step <id>` for single-step execution. `--batch` and `--json` supported. |
+| **normie-events.mjs** | On-chain event scanner. Queries Ethereum mainnet for Normie ecosystem events: awakenings (AgentBound from Adapter8004), transfers, and burns. Configurable block range or `--since` date. `--type` filter, `--save` to `data/events/`, `--json` for machine-readable. |
 
 ### Awaken Skill (`skills/awaken-normie/`)
 
@@ -147,6 +148,13 @@ node src/agent-tools/normie-activate.mjs 7593                     # dry-run: sho
 node src/agent-tools/normie-activate.mjs 7593 --live --skip-bond  # execute (skip irreversible bond)
 node src/agent-tools/normie-activate.mjs 7593 --step deploy-l1 --live  # single step
 node src/agent-tools/normie-activate.mjs --batch 294,7593 --json  # batch dry-run
+
+# On-chain event scanner — awakenings, transfers, burns
+node src/agent-tools/normie-events.mjs                     # last 1000 blocks (~3.3h)
+node src/agent-tools/normie-events.mjs --blocks 7200       # last 24 hours
+node src/agent-tools/normie-events.mjs --since 2026-06-01  # since date
+node src/agent-tools/normie-events.mjs --type awakening    # filter by type
+node src/agent-tools/normie-events.mjs --save --json       # save + machine-readable
 
 # Generate persona reply (requires Ollama running locally)
 python3 src/persona-reply/reply.py --llm "what do you think about being on-chain?"
