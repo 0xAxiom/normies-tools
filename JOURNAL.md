@@ -95,3 +95,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-02 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-02 12:17 PT | build | agent-tools/census-diff.mjs shipped — deep snapshot comparison: new/removed agents, operator fleet changes, type distribution shifts, Gini concentration trends, --all timeline mode. Tested across 3 snapshots (May 31-Jun 2). Data note: #3278 has empty type field in API (captured in diff output). Census: 1,128 agents (+0).
 2026-06-02 18:17 PT | build | agent-tools/normie-activate.mjs shipped — step-by-step activation orchestrator. Chains readiness check → deploy TBAs (L1+Base) → fund → bond Tool Pass. Dry-run default, --live to execute, --skip-bond for safety, --step for single-step. Tested #7593: 4 steps required (TBA deploy L1+Base, fund, bond). Census: 1,128 agents (+0).
+2026-06-02 21:33 PT | research | scanned=100 awakened=100 new=4 profiled=4
