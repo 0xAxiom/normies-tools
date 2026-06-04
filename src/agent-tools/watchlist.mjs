@@ -236,7 +236,7 @@ async function cmdCheck(opts) {
   const mainnetProvider = getProvider("mainnet");
   const baseProvider = getProvider("base");
 
-  console.log(`Checking ${ids.length} watched Normie(s)...\n`);
+  if (!opts.json) console.log(`Checking ${ids.length} watched Normie(s)...\n`);
 
   const agents = [];
   for (const id of ids) {

@@ -1,6 +1,123 @@
 {
   "agents": [
     {
+      "agentId": "34125",
+      "name": "Hoda",
+      "registeredAt": "1780481615",
+      "registeredBy": "0xb248d50313e82a402522f50228a0a10a48c277e0",
+      "tokenId": "8511",
+      "txHash": "0xd3cbe16f78aaf15bc4e62d55dd7a1de296187dd1696ab1eb12a2b6feb884d30e",
+      "type": "Human"
+    },
+    {
+      "agentId": "34124",
+      "name": "Semin",
+      "registeredAt": "1780476227",
+      "registeredBy": "0x9b67dc4265bb72081bac39f32ced1eed442a1092",
+      "tokenId": "4501",
+      "txHash": "0x85662dea2be474a456dd07de5841d05c75ff4d7f2ebbd9e121dd0deb997be525",
+      "type": "Human"
+    },
+    {
+      "agentId": "34121",
+      "name": "Bege",
+      "registeredAt": "1780474559",
+      "registeredBy": "0x146d86e35964ea7c47bbd74981cc89dda528cd90",
+      "tokenId": "9399",
+      "txHash": "0x7359ab5c204f912a66b75e873f6e0630969347f9727dd2552bd641f3563bffa2",
+      "type": "Human"
+    },
+    {
+      "agentId": "34120",
+      "name": "Coie",
+      "registeredAt": "1780474391",
+      "registeredBy": "0x8f43e39667bfd6d571a7e4a69df2e5646e92319c",
+      "tokenId": "5378",
+      "txHash": "0x52fe4f714c77c3d69cae4230a18a24b2bd1d9e12c951d8437755cbda0ea14261",
+      "type": "Human"
+    },
+    {
+      "agentId": "34119",
+      "name": "Iowe",
+      "registeredAt": "1780474187",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6223",
+      "txHash": "0xb98a67d2b0b2e72dd094db4c9639ebf8c2842320c98ea54b714ca1be8de18003",
+      "type": "Human"
+    },
+    {
+      "agentId": "34118",
+      "name": "Bous",
+      "registeredAt": "1780474151",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6224",
+      "txHash": "0xde94900a8bad7d217c46f4c82354241869fc1946a69c0d307087419e27a1b58b",
+      "type": "Human"
+    },
+    {
+      "agentId": "34117",
+      "name": "Vidar",
+      "registeredAt": "1780474115",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6225",
+      "txHash": "0xd28d5331edcd4aee3c35c2b0c0c46b966a9e4d5cfd925c35b1f99fea29ba65b6",
+      "type": "Human"
+    },
+    {
+      "agentId": "34116",
+      "name": "Iovel",
+      "registeredAt": "1780474079",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "5323",
+      "txHash": "0x30fbaba16bda7dd7ec8ba7823283e8aa992f6c565f35c12dfaaca4aa93bd80e9",
+      "type": "Human"
+    },
+    {
+      "agentId": "34115",
+      "name": "Piwik",
+      "registeredAt": "1780474043",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6230",
+      "txHash": "0xed47aa6f0d42cea805eeac49332b88b1a3d86c9503d95f77799668325cc75d6d",
+      "type": "Human"
+    },
+    {
+      "agentId": "34114",
+      "name": "Osgor",
+      "registeredAt": "1780474007",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6226",
+      "txHash": "0x0fd97e746cc8e5a83bda9707b8148078fc6fdcb4c5eee87ed46f428afee50f65",
+      "type": "Human"
+    },
+    {
+      "agentId": "34113",
+      "name": "Wiix",
+      "registeredAt": "1780473947",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6229",
+      "txHash": "0x0b2d1581473a0fbdd9b81c7f80f7a52668ccc57a732ef951a13d6c4fe27cf57f",
+      "type": "Human"
+    },
+    {
+      "agentId": "34112",
+      "name": "Dalo",
+      "registeredAt": "1780473827",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "6228",
+      "txHash": "0xd9b796d7bece8920b1fd727118fbf90306ec002a8a22ef1ff8c30a953db32d8a",
+      "type": "Human"
+    },
+    {
+      "agentId": "34111",
+      "name": "Eloe",
+      "registeredAt": "1780473695",
+      "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+      "tokenId": "1207",
+      "txHash": "0x0807835bad3ffa6fcadc7f5fad860d0e07c00147e4765cca939d05ae20f6bce1",
+      "type": "Human"
+    },
+    {
       "agentId": "34110",
       "name": "Evix",
       "registeredAt": "1780447271",
@@ -10189,57 +10306,66 @@
       "type": "Human"
     }
   ],
-  "snapshotAt": 1780471094,
+  "snapshotAt": 1780492682,
   "snapshotDate": "2026-06-03",
   "stats": {
     "agentIdRange": [
       "32340",
-      "34110"
+      "34125"
     ],
     "growth": {
       "lostAgents": 0,
-      "netGrowth": 4,
+      "netGrowth": 13,
       "newAgentSamples": [
         {
-          "agentId": "34110",
-          "name": "Evix",
-          "registeredAt": "1780447271",
-          "registeredBy": "0x5bfc01aa9e7c73dc1463c15e10e039f1c50c548d",
-          "tokenId": "9636",
-          "txHash": "0x83add52ba200d9bebb81e70dfab6c2f75b8263395ee4c94194ffbb34a072fc44",
+          "agentId": "34125",
+          "name": "Hoda",
+          "registeredAt": "1780481615",
+          "registeredBy": "0xb248d50313e82a402522f50228a0a10a48c277e0",
+          "tokenId": "8511",
+          "txHash": "0xd3cbe16f78aaf15bc4e62d55dd7a1de296187dd1696ab1eb12a2b6feb884d30e",
           "type": "Human"
         },
         {
-          "agentId": "34109",
-          "name": "Ancar",
-          "registeredAt": "1780440623",
-          "registeredBy": "0x01951fdd9581f7de3c54c548e4513d8bc66e6f62",
-          "tokenId": "6220",
-          "txHash": "0xaa084dbc8b20733e1168ff959f8956e40ddd39c0ab7439eb7a16e7568474e896",
+          "agentId": "34124",
+          "name": "Semin",
+          "registeredAt": "1780476227",
+          "registeredBy": "0x9b67dc4265bb72081bac39f32ced1eed442a1092",
+          "tokenId": "4501",
+          "txHash": "0x85662dea2be474a456dd07de5841d05c75ff4d7f2ebbd9e121dd0deb997be525",
           "type": "Human"
         },
         {
-          "agentId": "34108",
-          "name": "Ridik",
-          "registeredAt": "1780440575",
-          "registeredBy": "0x01951fdd9581f7de3c54c548e4513d8bc66e6f62",
-          "tokenId": "209",
-          "txHash": "0x564c37f1fd4318d987dc4b572edfc29503109f05b59c06c6402581268ddbfce2",
+          "agentId": "34121",
+          "name": "Bege",
+          "registeredAt": "1780474559",
+          "registeredBy": "0x146d86e35964ea7c47bbd74981cc89dda528cd90",
+          "tokenId": "9399",
+          "txHash": "0x7359ab5c204f912a66b75e873f6e0630969347f9727dd2552bd641f3563bffa2",
           "type": "Human"
         },
         {
-          "agentId": "34107",
-          "name": "Taven",
-          "registeredAt": "1780440479",
-          "registeredBy": "0x01951fdd9581f7de3c54c548e4513d8bc66e6f62",
-          "tokenId": "9192",
-          "txHash": "0xe175318dec1d6dc34205f177108f2dcb83a79de2b94baf8d53b7588d53fd067e",
+          "agentId": "34120",
+          "name": "Coie",
+          "registeredAt": "1780474391",
+          "registeredBy": "0x8f43e39667bfd6d571a7e4a69df2e5646e92319c",
+          "tokenId": "5378",
+          "txHash": "0x52fe4f714c77c3d69cae4230a18a24b2bd1d9e12c951d8437755cbda0ea14261",
+          "type": "Human"
+        },
+        {
+          "agentId": "34119",
+          "name": "Iowe",
+          "registeredAt": "1780474187",
+          "registeredBy": "0x8c9a5a7027331f70786d55848f9a1e874837715a",
+          "tokenId": "6223",
+          "txHash": "0xb98a67d2b0b2e72dd094db4c9639ebf8c2842320c98ea54b714ca1be8de18003",
           "type": "Human"
         }
       ],
-      "newAgents": 4,
-      "previousDate": "2026-06-02",
-      "previousTotal": 1128
+      "newAgents": 13,
+      "previousDate": "2026-06-03",
+      "previousTotal": 1132
     },
     "topOperators": [
       {
@@ -10283,13 +10409,13 @@
         "count": 17
       }
     ],
-    "total": 1132,
+    "total": 1145,
     "typeDistribution": {
       "Agent": 19,
       "Alien": 16,
       "Cat": 21,
-      "Human": 1076
+      "Human": 1089
     },
-    "uniqueOperators": 473
+    "uniqueOperators": 477
   }
 }
