@@ -100,3 +100,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-03 00:17 PT | build | agent-tools/normie-events.mjs shipped — on-chain event scanner. Queries Adapter8004 AgentBound (awakenings) + Normies Transfer events via eth_getLogs. Block range or --since date, --type filter, --save to data/events/, --json. First 24h scan: 68 events (64 transfers, 4 awakenings, 2 burns to dead address). Census: 1,132 agents (+4).
 2026-06-03 06:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-03 06:17 PT | build | agent-tools/watchlist.mjs shipped — watchlist-based monitoring tool. Add/remove tokens, snapshot on-chain+API state, diff against previous snapshots for ownership/TBA/ToolPass/funding/persona changes. Exponential backoff retry for Infura rate limits. Tested on #7593, #294, #3837, #9524 (all awakened, 0% TBAs deployed). Census: 1,145 agents (+13), 477 operators.
+2026-06-04 18:17 PT | phase-4-idle | no inbound (run.py dry)
