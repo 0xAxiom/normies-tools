@@ -102,3 +102,4 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-03 06:17 PT | build | agent-tools/watchlist.mjs shipped — watchlist-based monitoring tool. Add/remove tokens, snapshot on-chain+API state, diff against previous snapshots for ownership/TBA/ToolPass/funding/persona changes. Exponential backoff retry for Infura rate limits. Tested on #7593, #294, #3837, #9524 (all awakened, 0% TBAs deployed). Census: 1,145 agents (+13), 477 operators.
 2026-06-04 18:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-04 21:33 PT | research | scanned=100 awakened=100 new=14 profiled=14
+2026-06-05 00:17 PT | phase-4-idle | no inbound (run.py dry)
