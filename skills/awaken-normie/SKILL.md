@@ -21,9 +21,10 @@ NOT for:
 
 | What | Where |
 |---|---|
-| Wallet private key | `~/.axiom/wallet.env` exports `NET_PRIVATE_KEY` (or `MAINNET_PRIVATE_KEY`) and `AXIOM_WALLET_ADDRESS` |
+| Signing | **All txs via Bankr API only** — use `--encode-only` to build calldata, then submit via `curl .../agent/prompt`. NEVER use `NET_PRIVATE_KEY` (compromised) or `--private-key`. |
+| Bankr API key | `security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w` |
 | RPC | `INFURA_API_KEY` or override `MAINNET_RPC_URL` / `BASE_RPC_URL` / `SEPOLIA_RPC_URL` |
-| Ownership | Signer wallet must hold the Normie `tokenId` at the time of registration |
+| Ownership | Signer wallet (`0xef2cc7d1…1c75` / axiombot0x.base.eth) must hold the Normie `tokenId` at registration time |
 | Gas | ~245k gas per register tx (~$0.05–$0.20 at current mainnet base fees) |
 
 ## Contracts
@@ -118,20 +119,24 @@ Persona is regenerated live on every read — name and type are stable per `toke
 ## Quick reference: full awaken from scratch
 
 ```sh
-# 1. Ensure ~/.axiom/wallet.env has NET_PRIVATE_KEY
-# 2. From the skill directory
+# 1. From the skill directory
 cd scripts && npm install && cd ..
 
-# 3. Watch for the incoming Normie (background)
+# 2. Watch for the incoming Normie (background)
 nohup node scripts/watch.mjs mainnet > watch.log 2>&1 &
 
-# 4. Once the watcher logs a tokenId, dry-run
+# 3. Once the watcher logs a tokenId, dry-run (no broadcast)
 node scripts/awaken.mjs <tokenId>
 
-# 5. Confirm calldata + gas with the user, then broadcast
-node scripts/awaken.mjs <tokenId> --send
+# 4. Confirm calldata + gas with the user, then encode (no --private-key / NET_PRIVATE_KEY)
+node scripts/awaken.mjs <tokenId> --encode-only
+# tx JSON is printed to stdout — submit via Bankr API:
+BKEY=$(security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w)
+curl -s -X POST "https://api.bankr.bot/agent/prompt" \
+  -H "X-API-Key: $BKEY" -H "Content-Type: application/json" \
+  -d "{\"prompt\": \"Submit this transaction: $(node scripts/awaken.mjs <tokenId> --encode-only)\"}"
 
-# 6. Verify
+# 5. Verify
 node scripts/awaken.mjs --verify <agentId>
 ```
 
