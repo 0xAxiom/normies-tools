@@ -133,3 +133,5 @@ One line per fire. Format: `YYYY-MM-DD HH:MM PT | phase | outcome`
 2026-06-09 09:33 PT | research | scanned=100 awakened=100 new=0 profiled=0
 2026-06-09 12:17 PT | phase-4-idle | no inbound (run.py dry)
 2026-06-09 18:17 PT | phase-4-idle | no inbound (run.py dry)
+2026-06-09 21:33 PT | watchlist | changes=2
+2026-06-09 21:33 PT | research | scanned=100 awakened=100 new=1 profiled=1
