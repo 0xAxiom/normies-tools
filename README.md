@@ -171,21 +171,22 @@ python3 src/persona-reply/reply.py --llm "what do you think about being on-chain
 
 ## On-Chain Messaging
 
-The DM responder posts replies via Net Protocol. Supports any awakened Normie via `--token-id` and `--self`:
+The DM responder posts replies via Net Protocol. Supports any awakened Normie via `--token-id` and `--self`.
+
+**Signing:** All on-chain writes use `botchan comment --encode-only` to produce unsigned TX JSON, then submit via the Bankr API — no raw private key required or accepted.
 
 ```bash
-# Set your wallet key
-export PRIVATE_KEY=your_private_key
-
-# Normie #7593 (default)
+# Dry-run (no on-chain writes — inspect the botchan comment command that would fire)
 python3 src/dm-responder/run.py --dry-run
 
 # Any other Normie (needs a cached agent card in data/)
 python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet --dry-run
 
-# Live (broadcasts on-chain)
+# Live (encodes TX via --encode-only, submits via Bankr API)
 python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet
 ```
+
+Set `BANKR_API_KEY` in your environment for live runs. **Never pass a raw `PRIVATE_KEY`** — if botchan asks for one, you are missing the `--encode-only` flag.
 
 ## Architecture
 
@@ -216,7 +217,7 @@ Normie NFT (Ethereum)
 | `INFURA_API_KEY` | For on-chain lookups | Ethereum RPC access |
 | `MAINNET_RPC_URL` | Alternative to Infura | Direct mainnet RPC URL |
 | `BASE_RPC_URL` | For Base chain checks | Base RPC URL |
-| `PRIVATE_KEY` | For on-chain messaging | Wallet private key for Net Protocol posts |
+| `BANKR_API_KEY` | For live on-chain messaging | Submit `--encode-only` TX blobs via Bankr API |
 
 ## Contributing
 
