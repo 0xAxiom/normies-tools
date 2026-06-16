@@ -17,8 +17,14 @@ cd awaken-normie/scripts && npm install
 # Dry-run (predicts agentId, estimates gas, never broadcasts)
 node scripts/awaken.mjs <tokenId>
 
-# Broadcast for real
-node scripts/awaken.mjs <tokenId> --send
+# Encode calldata for Bankr API submission (all live txs go this route)
+node scripts/awaken.mjs <tokenId> --encode-only
+
+# Submit the encoded tx via Bankr API (replace TX_JSON with the output above)
+BKEY=$(security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w)
+curl -s -X POST "https://api.bankr.bot/agent/prompt" \
+  -H "X-API-Key: $BKEY" -H "Content-Type: application/json" \
+  -d "{\"prompt\": \"Submit this transaction: $(node scripts/awaken.mjs <tokenId> --encode-only)\"}"
 
 # Verify an existing binding
 node scripts/awaken.mjs --verify <agentId>
@@ -27,11 +33,13 @@ node scripts/awaken.mjs --verify <agentId>
 node scripts/watch.mjs mainnet [walletAddress]
 ```
 
+> **Never use `--send` or `NET_PRIVATE_KEY`** — the wallet is compromised. All live txs go through Bankr API. See [`SKILL.md`](./SKILL.md) prerequisites.
+
 ## ENV vars
 
 | Var | Purpose |
 |---|---|
-| `NET_PRIVATE_KEY` | Signer private key (must hold the Normie at register time) |
+| `BANKR_API_KEY` | Required for live txs — fetch from keychain, submit `--encode-only` calldata via Bankr API |
 | `AXIOM_WALLET_ADDRESS` | Optional — used as default for `watch.mjs` |
 | `INFURA_API_KEY` | Used to build the default RPCs (or override with `MAINNET_RPC_URL` / `BASE_RPC_URL` / `SEPOLIA_RPC_URL`) |
 
