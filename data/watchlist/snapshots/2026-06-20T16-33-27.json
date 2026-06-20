@@ -1,0 +1,66 @@
+{
+  "timestamp": "2026-06-20T16:33:27.637Z",
+  "count": 4,
+  "agents": [
+    {
+      "tokenId": 294,
+      "tba": "0x354ee07a4fb56AA26666752FD0493419d0Cce169",
+      "owner": "0xBc7d2D1e469C4f5823AD8121E10A6ea3cB5D06C4",
+      "awakened": true,
+      "agentId": "33627",
+      "name": "Goire",
+      "type": "Agent",
+      "tbaDeployedL1": false,
+      "tbaDeployedBase": false,
+      "l1Eth": "0.0",
+      "baseEth": "0.0",
+      "toolPassCount": 0,
+      "personaLength": 5028
+    },
+    {
+      "tokenId": 3837,
+      "tba": "0x79Bf52a99e9E281430C6A37542648E17FaFc62A8",
+      "owner": "0x6393Ea33B25528D50Df724460C4465187EAd1403",
+      "awakened": true,
+      "agentId": "33800",
+      "name": "Biirx",
+      "type": "Agent",
+      "tbaDeployedL1": false,
+      "tbaDeployedBase": false,
+      "l1Eth": "0.0",
+      "baseEth": "0.0",
+      "toolPassCount": 0,
+      "personaLength": 5237
+    },
+    {
+      "tokenId": 7593,
+      "tba": "0x69EddaB7CD9531EC47093A01c08CdcbEbFdD7b4D",
+      "owner": "0x95D543f031FE0955fE1dEB1a495Be03D80e070e8",
+      "awakened": true,
+      "agentId": "32811",
+      "name": "Mine",
+      "type": "Human",
+      "tbaDeployedL1": false,
+      "tbaDeployedBase": false,
+      "l1Eth": "0.0",
+      "baseEth": "0.0",
+      "toolPassCount": 0,
+      "personaLength": 5001
+    },
+    {
+      "tokenId": 9524,
+      "tba": "0x35BA42ea3960eA27D3F7bD1cAF0507de46c88a48",
+      "owner": "0xaB7DBf90B9924DfFD235cFAfEF95f3F534B1EE4E",
+      "awakened": true,
+      "agentId": "33605",
+      "name": "Boine",
+      "type": "Agent",
+      "tbaDeployedL1": false,
+      "tbaDeployedBase": false,
+      "l1Eth": "0.0",
+      "baseEth": "0.0",
+      "toolPassCount": 0,
+      "personaLength": 4978
+    }
+  ]
+}
