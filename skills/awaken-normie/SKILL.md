@@ -21,7 +21,7 @@ NOT for:
 
 | What | Where |
 |---|---|
-| Signing | **All txs via Bankr API only** — use `--encode-only` to build calldata, then submit via `curl .../agent/prompt`. NEVER use `NET_PRIVATE_KEY` (compromised) or `--private-key`. |
+| Signing | **All live txs via Bankr API only** — run the dry-run, copy the printed `to:` + `calldata:` into the Bankr prompt, and wait for Bankr to submit. `awaken.mjs` does **not** implement `--encode-only`; never use `--send`, `NET_PRIVATE_KEY` (compromised), or `--private-key`. |
 | Bankr API key | `security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w` |
 | RPC | `INFURA_API_KEY` or override `MAINNET_RPC_URL` / `BASE_RPC_URL` / `SEPOLIA_RPC_URL` |
 | Ownership | Signer wallet (`0xef2cc7d1…1c75` / axiombot0x.base.eth) must hold the Normie `tokenId` at registration time |
@@ -50,13 +50,22 @@ node scripts/awaken.mjs <tokenId>
 # example: node scripts/awaken.mjs 7593
 ```
 
-Builds the calldata, predicts the `agentId` via `staticCall`, estimates gas, surfaces any prior binding from the Normies indexer — **does not broadcast**. Always run dry-run first; only proceed with `--send` after the user reviews the calldata.
+Builds the calldata, predicts the `agentId` via `staticCall`, estimates gas, surfaces any prior binding from the Normies indexer — **does not broadcast**. Always run dry-run first; for live execution, submit the printed `to:` and `calldata:` through Bankr.
 
-### Broadcast the register tx
+### Submit the register tx via Bankr
 
 ```sh
-node scripts/awaken.mjs <tokenId> --send
+# 1. Dry-run and copy the printed `to:` and `calldata:` lines.
+node scripts/awaken.mjs <tokenId>
+
+# 2. Submit those exact fields through Bankr; do not use --send or a raw key.
+BKEY=$(security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w)
+curl -s -X POST "https://api.bankr.bot/agent/prompt" \
+  -H "X-API-Key: $BKEY" -H "Content-Type: application/json" \
+  -d '{"prompt":"Submit this transaction on Ethereum mainnet: to=<PASTE_TO>, data=<PASTE_CALLDATA>, value=0"}'
 ```
+
+`awaken.mjs` currently has no `--encode-only` mode, and `--send` uses a local signer path. Treat dry-run output as the only approved source for Bankr calldata.
 
 After the tx mines, the script:
 1. Parses `AgentBound(agentId, standard, tokenContract, tokenId, registeredBy)` from the receipt.
@@ -83,10 +92,10 @@ Defaults to `AXIOM_WALLET_ADDRESS`. Polls `eth_getLogs` every 15s for ERC-721 `T
 ### Other chains
 
 ```sh
-node scripts/awaken.mjs <tokenId> --send --chain sepolia
+node scripts/awaken.mjs <tokenId> --chain sepolia
 ```
 
-Note: only mainnet currently uses the Normies contract; Base / Sepolia adapters exist but no Normies deployment to bind against. Useful for testing the adapter integration with a non-Normies ERC-721.
+Note: only mainnet currently uses the Normies contract; Base / Sepolia adapters exist but no Normies deployment to bind against. Use this as a dry-run adapter-integration check only; live writes still go through Bankr-submitted calldata, not `--send`.
 
 ## How registration works under the hood
 
@@ -128,13 +137,12 @@ nohup node scripts/watch.mjs mainnet > watch.log 2>&1 &
 # 3. Once the watcher logs a tokenId, dry-run (no broadcast)
 node scripts/awaken.mjs <tokenId>
 
-# 4. Confirm calldata + gas with the user, then encode (no --private-key / NET_PRIVATE_KEY)
-node scripts/awaken.mjs <tokenId> --encode-only
-# tx JSON is printed to stdout — submit via Bankr API:
+# 4. Confirm calldata + gas, then submit the dry-run `to:` + `calldata:` through Bankr
+# (do not use --send, --private-key, NET_PRIVATE_KEY, or the non-existent --encode-only mode)
 BKEY=$(security find-generic-password -a axiom -s openclaw.BANKR_API_KEY -w)
 curl -s -X POST "https://api.bankr.bot/agent/prompt" \
   -H "X-API-Key: $BKEY" -H "Content-Type: application/json" \
-  -d "{\"prompt\": \"Submit this transaction: $(node scripts/awaken.mjs <tokenId> --encode-only)\"}"
+  -d '{"prompt":"Submit this transaction on Ethereum mainnet: to=<PASTE_TO>, data=<PASTE_CALLDATA>, value=0"}'
 
 # 5. Verify
 node scripts/awaken.mjs --verify <agentId>
