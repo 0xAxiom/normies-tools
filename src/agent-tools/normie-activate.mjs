@@ -98,7 +98,7 @@ function buildSteps(state) {
       id: "awaken",
       action: "Register as ERC-8004 agent via Adapter8004",
       chain: "mainnet",
-      command: `node awaken-batch.mjs ${state.tokenId} --send`,
+      command: `node skills/awaken-normie/scripts/awaken.mjs ${state.tokenId}  # dry-run; submit printed to/calldata via Bankr`,
       reversible: true,
     });
   }

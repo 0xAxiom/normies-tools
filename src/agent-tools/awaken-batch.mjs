@@ -4,8 +4,8 @@
 //   node awaken-batch.mjs 100,200,300             # dry-run these token IDs
 //   node awaken-batch.mjs --range 100-110          # dry-run token IDs 100..110
 //   node awaken-batch.mjs --wallet 0x...           # dry-run all Normies held by wallet
-//   node awaken-batch.mjs 100,200 --send           # broadcast (sequential, mainnet)
-//   node awaken-batch.mjs 100,200 --send --delay 5 # 5s between txs (default: 3)
+//
+// Live sends are intentionally blocked here: use skills/awaken-normie/scripts/awaken.mjs for per-token Bankr calldata.
 
 import { ethers } from "ethers";
 import {
@@ -32,6 +32,14 @@ loadEnv();
 
 const args = process.argv.slice(2);
 const send = args.includes("--send");
+if (send) {
+  console.error([
+    "--send is intentionally disabled for awaken-batch.mjs.",
+    "Run without --send for batch readiness checks. For live awakening, run skills/awaken-normie/scripts/awaken.mjs per token and submit the printed to/calldata through Bankr.",
+    "Reason: local raw-key broadcast paths are not approved for Normie awakening.",
+  ].join("\n"));
+  process.exit(2);
+}
 const delayIdx = args.indexOf("--delay");
 const delaySec = delayIdx >= 0 ? Number(args[delayIdx + 1]) : 3;
 const rangeIdx = args.indexOf("--range");

@@ -161,7 +161,7 @@ function buildNextSteps(checks) {
     return steps;
   }
   if (!checks.awakened.pass) {
-    steps.push("Awaken as ERC-8004 agent: node awaken-batch.mjs <tokenId> --send");
+    steps.push("Awaken as ERC-8004 agent: node skills/awaken-normie/scripts/awaken.mjs <tokenId> (dry-run), then submit printed to/calldata via Bankr");
   }
   if (!checks.tbaDeployed.l1) {
     steps.push("Deploy TBA on mainnet: node tba-deployer.mjs <tokenId> --chain mainnet --live");

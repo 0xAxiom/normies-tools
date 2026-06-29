@@ -109,7 +109,7 @@ async function checkNormieReadiness(tokenId, mainnetProvider, baseProvider, tool
     .filter(Boolean).length;
 
   const steps = [];
-  if (!awakened) steps.push({ action: "awaken", cmd: `node awaken-batch.mjs ${tokenId} --send`, chain: "mainnet" });
+  if (!awakened) steps.push({ action: "awaken", cmd: `node skills/awaken-normie/scripts/awaken.mjs ${tokenId}  # dry-run; submit printed to/calldata via Bankr`, chain: "mainnet" });
   if (!l1Deployed) steps.push({ action: "deploy-l1-tba", cmd: `node tba-deployer.mjs ${tokenId} --chain mainnet --live`, chain: "mainnet" });
   if (!baseDeployed) steps.push({ action: "deploy-base-tba", cmd: `node tba-deployer.mjs ${tokenId} --chain base --live`, chain: "base" });
   if (!funded) steps.push({ action: "fund", cmd: `Send ETH to ${tbaAddress}`, chain: "base" });

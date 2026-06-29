@@ -130,7 +130,7 @@ async function planActivation(tokenId, gas, opts = {}) {
       action: "awaken",
       chain: "mainnet",
       description: "Register as ERC-8004 agent via Adapter8004",
-      command: `node awaken-batch.mjs ${tokenId} --send`,
+      command: `node skills/awaken-normie/scripts/awaken.mjs ${tokenId}  # dry-run; submit printed to/calldata via Bankr`,
       estimatedGas: awakenGas.toString(),
       costEth: ethers.formatEther(awakenGas * gas.mainnet.gasPrice),
       status: "required",
