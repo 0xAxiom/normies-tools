@@ -7,12 +7,14 @@
  *
  * Usage:
  *   node normie-activate.mjs 7593                     # dry-run: show what would happen
- *   node normie-activate.mjs 7593 --live              # execute all steps (CAUTION)
- *   node normie-activate.mjs 7593 --live --skip-bond  # execute, skip irreversible Tool Pass bond
+ *   node normie-activate.mjs 7593 --skip-bond         # dry-run, exclude irreversible Tool Pass bond
  *   node normie-activate.mjs 7593 --step deploy-l1    # dry-run single step
- *   node normie-activate.mjs 7593 --step deploy-base --live  # execute single step
  *   node normie-activate.mjs --batch 294,7593         # dry-run batch
  *   node normie-activate.mjs 7593 --json              # machine-readable output
+ *
+ * Live mode is intentionally gated because it uses a local signer path. For Axiom
+ * automation, dry-run here and submit any on-chain transaction through the safer
+ * per-step Bankr / encode-only flow documented in README.md.
  */
 
 import { ethers } from "ethers";
@@ -325,20 +327,25 @@ async function main() {
     console.log("Usage: node normie-activate.mjs <tokenId> [options]");
     console.log("");
     console.log("Options:");
-    console.log("  --live         Execute activation steps (default: dry-run)");
-    console.log("  --skip-bond    Skip irreversible Tool Pass bonding step");
-    console.log("  --step <id>    Execute only a specific step:");
+    console.log("  --live         Blocked unless NORMIE_ACTIVATE_ALLOW_LIVE=1; uses local signer path");
+    console.log("  --skip-bond    Exclude irreversible Tool Pass bonding step from the plan");
+    console.log("  --step <id>    Plan only a specific step:");
     console.log("                 awaken, deploy-l1, deploy-base, fund-base, bond-toolpass");
     console.log("  --batch <ids>  Comma-separated token IDs");
     console.log("  --json         Machine-readable JSON output");
     console.log("");
-    console.log("Dry-run shows what would happen. --live executes on-chain.");
-    console.log("Tool Pass bonding is IRREVERSIBLE — use --skip-bond to exclude it.");
+    console.log("Default mode is dry-run planning. For Axiom automation, do not use --live;");
+    console.log("submit any on-chain transaction through the documented Bankr / encode-only flow.");
+    console.log("Tool Pass bonding is irreversible; use --skip-bond to exclude it.");
     process.exit(0);
   }
 
   loadEnv();
   const live = args.includes("--live");
+  if (live && process.env.NORMIE_ACTIVATE_ALLOW_LIVE !== "1") {
+    console.error("Blocked: normie-activate --live uses a local signer path. Use dry-run planning and submit on-chain steps through the documented Bankr / encode-only flow. Set NORMIE_ACTIVATE_ALLOW_LIVE=1 only for an explicit, operator-supervised local signing session.");
+    process.exit(2);
+  }
   const skipBond = args.includes("--skip-bond");
   const jsonMode = args.includes("--json");
   const stepIdx = args.indexOf("--step");
