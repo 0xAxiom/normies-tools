@@ -172,9 +172,9 @@ python3 src/persona-reply/reply.py --llm "what do you think about being on-chain
 
 ## On-Chain Messaging
 
-The DM responder posts replies via Net Protocol. Supports any awakened Normie via `--token-id` and `--self`.
+The DM responder prepares replies via Net Protocol. Supports any awakened Normie via `--token-id` and `--self`.
 
-**Signing:** All on-chain writes use `botchan comment --encode-only` to produce unsigned TX JSON, then submit via the Bankr API — no raw private key required or accepted.
+**Approved mode:** dry-run only. The current `src/dm-responder/assemble.py --live` path calls `botchan comment` directly, so it can fall back to the local signer prompt. Do not run it for Axiom automation until the code emits unsigned `--encode-only` TX JSON and submits that blob through Bankr.
 
 ```bash
 # Dry-run (no on-chain writes — inspect the botchan comment command that would fire)
@@ -183,11 +183,11 @@ python3 src/dm-responder/run.py --dry-run
 # Any other Normie (needs a cached agent card in data/)
 python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet --dry-run
 
-# Live (encodes TX via --encode-only, submits via Bankr API)
-python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet
+# Not approved yet: live responder execution still calls raw botchan comment.
+# python3 src/dm-responder/run.py --token-id 294 --self 0xYourWallet
 ```
 
-Set `BANKR_API_KEY` in your environment for live runs. **Never pass a raw `PRIVATE_KEY`** — if botchan asks for one, you are missing the `--encode-only` flag.
+If a live reply is needed, first update the responder to produce unsigned `botchan comment --encode-only` output and submit the resulting transaction blob through the Bankr API. Never pass `PRIVATE_KEY` or `NET_PRIVATE_KEY` into this repo.
 
 ## Architecture
 
